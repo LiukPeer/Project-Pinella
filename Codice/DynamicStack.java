@@ -26,8 +26,7 @@ public Carta pop(){
 //toglierlo
 public Carta top(){
   assert !empty();
-  Carta x = top.getCard();
-  return x;
+  return top.getCard();
 }
 /* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodeC
 che parte da top e procede lungo la pila fino a arrivare al nodo
