@@ -11,11 +11,11 @@ public class NodeC {
     }
 
     public Carta getCard() {
-        return carta;
+        return this.carta;
     }
 
     public NodeC getNext() {
-        return next;
+        return this.next;
     }
 
     public void setCard(Carta card) {
