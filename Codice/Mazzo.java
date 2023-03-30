@@ -22,19 +22,17 @@ public class Mazzo {
 
     DynamicStack creaMazzo(int nCarte, int nMazzi, String[] semi, int valoreMassimo) {
         int valore = 1;
-        int contS = 0;
-        int segno = 0;
-        for (int ix = 0; ix < nCarte; ix++) {
-            if (valore <= (nCarte / semi.length)) {
+        for (int segno=0; segno<semi.length;segno++){
+            while (valore<=(nCarte / semi.length)){
                 new Carta(valore, semi[segno]);
-            } else {
+                valore++;
             }
         }
+        int numeroJolly=nCarte-.length;
+        while (numeroJolly>0){
+            new Carta(0,"Jolly");
+            numeroJolly--;
+        }
+        return;
     }
-
-    DynamicStack creaMazzoRic(int nCarte, int nMazzi, String[] semi, int valoreMassimo) {
-
-    }
-
-
 }
