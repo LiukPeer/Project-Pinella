@@ -47,9 +47,9 @@ cima della pila, e quindi perso l’accesso alla pila dopo l’esecuzione del
 metodo. */
 //COSTRUTTORE di una pila P = {1,...,n}, pila vuota se n<=0.
 //Aggiunge i nodi nell’ordine da n fino a 1. 1 sta nel top.
-public DynamicStack(int n){
-  top = null; int i = n;
+public DynamicStack(Carta n){
+  top = null; int i = n.getValore();
   while (i>=1) //aggiungo il nodo che contiene i
-{top = new NodeC(i,top);--i;}
+{top = new NodeC(new Carta(i,n.getSeme()),top);--i;}
 }
 }
