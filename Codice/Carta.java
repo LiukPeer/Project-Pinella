@@ -8,16 +8,16 @@ public class Carta {
        oppure carte da 1 a 12, tranne jolly e pinella
      */
     public Carta(int value, String sign) {
-        valore = value;
-        seme = sign;
+        this.valore = value;
+        this.seme = sign;
     }
 
     public int getValore() {
-        return valore;
+        return this.valore;
     }
 
     public String getSeme() {
-        return seme;
+        return this.seme;
     }
 
     public void setValore(int valore) {
