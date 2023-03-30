@@ -16,9 +16,9 @@ public void push(Carta x) {
   top = new NodeC(x, top);
 }
 //tolgo il nodo in cima alla pila e restituisco il suo contenuto
-public int pop(){
+public Carta pop(){
   assert !empty();
-  int x = top.getElem();
+  Carta x = top.getElem();
   top = top.getNext(); //elimino l'ultimo nodo con contenuto x
   return x;
 }
