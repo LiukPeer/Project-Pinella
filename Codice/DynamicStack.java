@@ -18,7 +18,7 @@ public void push(Carta x) {
 //tolgo il nodo in cima alla pila e restituisco il suo contenuto
 public Carta pop(){
   assert !empty();
-  Carta x = top.getElem();
+  Carta x = top.getCard();
   top = top.getNext(); //elimino l'ultimo nodo con contenuto x
   return x;
 }
@@ -26,7 +26,7 @@ public Carta pop(){
 //toglierlo
 public Carta top(){
   assert !empty();
-  Carta x = top.getElem();
+  Carta x = top.getCard();
   return x;
 }
 /* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodeC
@@ -36,7 +36,7 @@ public String toString(){
   NodeC temp = top; //partiamo dal nodo in cima alla pila
   String s = ""; //accumuliamo gli elementi in s
   while (temp != null){ //ci fermiamo quando temp arriva al nodo null
-    s=s+" || "+temp.getElem()+"\n"; //aggiungiamo l’elemento in cima
+    s=s+" || "+temp.getCard()+"\n"; //aggiungiamo l’elemento in cima
     temp=temp.getNext(); //avanziamo al nodo successivo
   }
   return s;
