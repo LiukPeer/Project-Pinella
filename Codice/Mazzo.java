@@ -29,7 +29,7 @@ public class Mazzo {
                 valore++;
             }
         }
-        int numeroJolly=nCarte-mc.length;
+        int numeroJolly=nCarte-NodeC.length(mc.top());
         while (numeroJolly>0){
             mc.push(new Carta(0,"Jolly"));
             numeroJolly--;

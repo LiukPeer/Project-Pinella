@@ -30,9 +30,9 @@ public class DynamicStack {
 
     //restituisco il contenuto del nodo in cima alla pila senza
 //toglierlo
-    public Carta top() {
+    public NodeC top() {
         assert !empty();
-        return top.getCard();
+        return top;
     }
 
     /* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodeC

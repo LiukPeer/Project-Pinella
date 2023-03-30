@@ -25,6 +25,13 @@ public class NodeC {
     public void setNext(NodeC next) {
         this.next = next;
     }
+
+    static int length(NodeC node) {
+        if (node == null) {
+            return 0;
+        }
+        return 1 + length(node.getNext());
+    }
 }
 
 
