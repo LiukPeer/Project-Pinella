@@ -28,8 +28,9 @@ public class Mazzo {
                 mc.push(new Carta(valore, semi[segno]));
                 valore++;
             }
+            valore=1;
         }
-        int numeroJolly=nCarte-NodeC.length(mc.top());
+        int numeroJolly=nCarte-NodeC.length(mc.topNode());
         while (numeroJolly>0){
             mc.push(new Carta(0,"Jolly"));
             numeroJolly--;
