@@ -2,7 +2,7 @@ package Codice;
 
 //DynamickStack.java
 public class DynamicStack {
-private Node top;
+private NodeC top;
 //ultimo nodo aggiunto alla pila, "null" se non ce ne sono
 //COSTRUTTORE di una pila P = {} vuota
 public DynamicStack(){
@@ -12,8 +12,8 @@ public DynamicStack(){
 public boolean empty(){
   return top==null;}
 //aggiungo un nodo in cima alla pila con un nuovo elemento x
-public void push(int x) {
-  top = new Node(x, top);
+public void push(Carta x) {
+  top = new NodeC(x, top);
 }
 //tolgo il nodo in cima alla pila e restituisco il suo contenuto
 public int pop(){
@@ -24,16 +24,16 @@ public int pop(){
 }
   //restituisco il contenuto del nodo in cima alla pila senza
 //toglierlo
-public int top(){
+public Carta top(){
   assert !empty();
-  int x = top.getElem();
+  Carta x = top.getElem();
   return x;
 }
-/* STAMPA. Per scorrere una pila usiamo una variabile di tipo Node
+/* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodeC
 che parte da top e procede lungo la pila fino a arrivare al nodo
-null. Usiamo di nuovo una conversione Node-->String. */
+null. Usiamo di nuovo una conversione NodeC-->String. */
 public String toString(){
-  Node temp = top; //partiamo dal nodo in cima alla pila
+  NodeC temp = top; //partiamo dal nodo in cima alla pila
   String s = ""; //accumuliamo gli elementi in s
   while (temp != null){ //ci fermiamo quando temp arriva al nodo null
     s=s+" || "+temp.getElem()+"\n"; //aggiungiamo l’elemento in cima
@@ -50,6 +50,6 @@ metodo. */
 public DynamicStack(int n){
   top = null; int i = n;
   while (i>=1) //aggiungo il nodo che contiene i
-{top = new Node(i,top);--i;}
+{top = new NodeC(i,top);--i;}
 }
 }
