@@ -9,21 +9,22 @@ Abbiamo 4 semi diversi (Cuori, fiori, picche, quadri), ogni seme ha 12 carte div
 1. Ad ogni giocatore si danno 13 carte casuali prese dal mazzo;
 2. Si mette una carta nello spazio carte scartate;
 ### Regole:
-* Ad ogni inizio turno ogni G deve pescare una carta o dal mazzo o dalle carte scartate (N.B. se si pesca da `CarteScartate` si possono prendere un numero  di carte appartenente al range[1:CarteScartatePescare.length-1], si è obbligati a mettere nel proprio campo a terra(“campoGn°”) la prima carta pescata da questo mazzo(non andrà messa a caso nel proprio campo),le altre carte posizionate dopo questa possono essere tenute in mano (l’ordine delle carte in CarteScartatePescare parte dalla prima carta scartata all’ultima carta scartata ));
+* Ad ogni inizio turno ogni G deve pescare una carta o dal mazzo o dalle carte scartate 
+* Se si pesca da `CarteScartate` si possono prendere un numero  di carte appartenente al range[1:CarteScartate.length-1], si è obbligati a mettere nel proprio campo a terra(“campoGn°”) la prima carta pescata da questo mazzo,le altre carte posizionate dopo questa possono essere tenute in mano (l’ordine delle carte in CarteScartatePescare parte dalla prima carta scartata all’ultima carta scartata );
 
-* Ad ogni fine turno ogni G deve scartare una carta (andrà inserita a CarteScartatePescare).Lo scarto della carta deve avvenire con un senso logico scelto dal determinato giocatore,si consiglia di non scartare carte che servono agli avversari,quindi che non  attacchino alle scale presenti in campo  degli avversari oppure bisogna evitare di scartare carte che potrebbero aiutare il giocatore stesso a fare una lunga o comunque più scale(più punti), bisogna cercare di sabotare gli avversari il più possibile con le carte che si hanno a disposizione.
+* Ad ogni fine turno ogni G deve scartare una carta (andrà inserita a CarteScartate).Lo scarto della carta deve avvenire con un senso logico scelto dal determinato giocatore,si consiglia di non scartare carte che servono agli avversari,quindi che non  attacchino alle scale presenti in campo  degli avversari oppure bisogna evitare di scartare carte che potrebbero aiutare il giocatore stesso a fare una lunga o comunque più scale(più punti), bisogna cercare di sabotare gli avversari il più possibile con le carte che si hanno a disposizione.
 
-ogni volta che viene presa una carta dal mazzo,questa carta scompare dal mazzo e va in mano ad un giocatore oppure a “CarteScartatePescare”.
+ogni volta che viene presa una carta dal mazzo, questa carta scompare dal mazzo e va in mano ad un giocatore oppure a “CarteScartatePescare”.
 
 ### Possibili combinazioni delle scale:
--> devono avere minimo 3 carte ciascuna;
--> ogni scala ha un proprio seme,semi di diverso tipo non si possono combinare;
--> le scale si fanno nel seguente ordine : A->3->4->5->6->7->8->9->10->J->Q->K->A (tra A e il 3 non c’è il 2);
--> il 2P e il 2F si chiamano pinelle e hanno lo stesso ruolo dei jolly, l’unica differenza è che le pinelle non possono essere prese dagli avversari mentre i jolly si.
-->le pinelle e i jolly vengono usati per formare le scale come sostituti di una carta mancate;
--> Ogni giocatore può prendere il jolly di chiunque altro, solo se ha la carte reale che lo sostituirebbe;
--> in ogni scala si possono aggiungere solo nuove carte(oltre ai jolly eventualmente spostati);
--> le pinelle possono essere sostituite con la reale carta,ma a differenza dei jolly possono essere poi spostate solo lungo la scala in cui erano state inserite inizialmente;
++ Devono avere minimo 3 carte ciascuna;
++ Ogni scala ha un proprio seme, semi di diverso tipo non si possono combinare;
++ le scale si fanno nel seguente ordine : A->3->4->5->6->7->8->9->10->J->Q->K->A (tra A e il 3 non c’è il 2);
++ I 2 di Picche e Fiori si chiamano pinelle e hanno lo stesso ruolo dei jolly, l’unica differenza è che le pinelle non possono essere prese dagli avversari mentre i jolly si.
++ Le pinelle e i jolly vengono usati per formare le scale come sostituti di una carta mancate;
+* Ogni giocatore può prendere il jolly di chiunque altro, solo se ha la carte reale che lo sostituirebbe;
+* in ogni scala si possono aggiungere solo nuove carte(oltre ai jolly eventualmente spostati);
++ le pinelle possono essere sostituite con la reale carta, ma a differenza dei jolly possono essere poi spostate solo lungo la scala in cui erano state inserite inizialmente;
 ### Condizioni di vittoria
 * fare una scala di minimo 6 carte di fila(“lunga”) senza jolly e pinelle in mezzo;
 * Terminare le carte in mano
