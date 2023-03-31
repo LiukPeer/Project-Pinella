@@ -14,7 +14,6 @@ public class Mazzo {
             numeroCarte = 40;
             numeroMazzi = 1;
             deck = creaMazzo(numeroCarte, numeroMazzi, new String[]{"Spade", "Bastoni", "Denari", "Coppe"}, gioco);
-            System.out.println("Non ancora sviluppato");
         } else {
             System.out.println("Tale gioco non esiste o non è stato implementato");
         }
