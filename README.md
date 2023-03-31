@@ -1,4 +1,5 @@
 # Project-Pinella
+![7b6b3636ffb810078b85a9ec0d3625a1](https://user-images.githubusercontent.com/129169764/229159876-e2135bfb-e803-4438-ae75-4d238b9dd81f.jpg)
 ## Pinella
 
 ### Numero di giocatori: 
@@ -32,17 +33,17 @@ ogni volta che viene presa una carta dal mazzo, questa carta scompare dal mazzo 
 la partita termina anche quando il mazzo ha zero carte. 
 In quel caso a fine partita si contano i punti in base alle scale
 
-punti finali partita:
-il giocatore che vince prende di partenza (bonus)100 punti al quale poi verranno sommati gli altri punti ;
-ogni carta della lunga ha il doppio punteggio del valore della carta in sè;
-punteggio carte: A=15, 3/4/5/6=5, 7/8/9/10/J/Q/K=10, JR/JB=25, 2f/2p=20.
-se si fa un scala con tutte le carte possibili da A ad A dopo il k, senza jolly e pinelle in mezzo(“lunghissima”) si vince tutta la partitona, si fanno 1500 punti;
+### Punti finali partita:
+Il giocatore che vince prende di bonus 100 punti al quale poi verranno sommati gli altri punti ;
+Ogni carta della lunga ha il doppio punteggio del valore della carta in sè;
+Punteggio carte: A=15, 3/4/5/6=5, 7/8/9/10/J/Q/K=10, JR/JB=25, 2f/2p=20.
+se si fa un scala con tutte le carte possibili da A ad A dopo il K, senza jolly e pinelle in mezzo(“lunghissima”) si vince tutta la partitona, si fanno 1500 punti;
 i giocatori che perdono devono contare anche il punteggio delle carte che hanno in mano e sottrarlo dal punteggio ottenuto dalle carte presenti nel proprio campo.
-partitona:
-insieme delle partite;
+
+### Insieme delle partite;
 il partitone finisce quando uno dei giocatori raggiunge un punteggio >=1500 punti. Il giocatore che raggiunge questo punteggio è definito il vincitore.
-n. giocatori:
-se ci sono 2 giocatori avremo G1 che gioca contro G2 e viceversa, un campoG1 e un campoG2 cioè campo di gioco del giocatore rispettivamente 1 e 2 , un mazzo e un CarteScartatePescate;
-se ci sono 3 giocatori avremo G1, G2 e G3, ognuno giocherà contro ciascuno degli altri, ci saranno campoG1,campoG2, campoG3, un mazzo e un CarteScartatePescate;
-se ci sono 4 giocatori avremo due squadre (Squadra1 e  Squadra2) separate ciascuna con  due giocatori,le due squadre devono essere diverse  (combinazioni possibili di squadre 6); ci saranno due campi di gioco,uno per ciascuna squadra  (campoS1 e campoS2) e poi un mazzo e un CarteScartatePescate.
+
+se ci sono 2 o 3 giocatori ognuno giocherà individualmente e avrà le proprie scale;
+
+se ci sono 4 giocatori avremo due squadre (Squadra1 e  Squadra2) separate ciascuna con  due giocatori, le due squadre devono essere diverse  (combinazioni possibili di squadre 6); ci saranno due campi di gioco, uno per ciascuna squadra  (campoS1 e campoS2) e poi un mazzo e un CarteScartatePescate.
 
