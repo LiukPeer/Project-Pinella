@@ -29,8 +29,9 @@ ogni volta che viene presa una carta dal mazzo, questa carta scompare dal mazzo 
 * fare una scala di minimo 6 carte di fila(“lunga”) senza jolly e pinelle in mezzo;
 * Terminare le carte in mano
 
-la partita termina anche quando il mazzo ha zero carte.
+la partita termina anche quando il mazzo ha zero carte. 
 In quel caso a fine partita si contano i punti in base alle scale
+
 punti finali partita:
 il giocatore che vince prende di partenza (bonus)100 punti al quale poi verranno sommati gli altri punti ;
 ogni carta della lunga ha il doppio punteggio del valore della carta in sè;
