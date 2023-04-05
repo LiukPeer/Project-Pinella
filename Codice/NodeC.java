@@ -5,6 +5,9 @@ public class NodeC {
     private Carta carta;
     private NodeC next;
 
+    //Da implementare: il giocatore viene incluso nei nodi per determinare a chi appartiene una carta.
+    //                 Quando la carta è nel mazzo o scartata l'appartenenza è null.
+
     public NodeC(Carta card, NodeC next) {
         this.carta = card;
         this.next = next;
