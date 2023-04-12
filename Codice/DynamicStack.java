@@ -68,6 +68,21 @@ public class DynamicStack {
         size=1;
     }
 
+    public DynamicStack(NodeC nodo){
+        top=nodo;
+        size= NodeC.length(nodo);
+    }
+
+ /*   public DynamicStack(NodeC inizio, Carta fine){
+        NodeC temp= new NodeC(inizio.getCard(),inizio.getNext());
+        top=temp;
+        while (!temp.getCard().equals(fine)){
+            push(temp.getCard());
+            temp=temp.getNext();
+        }
+        size= NodeC.length(temp);
+    } */
+
     public int size(){
         return size;
     }
