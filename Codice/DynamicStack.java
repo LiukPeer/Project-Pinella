@@ -93,8 +93,8 @@ public class DynamicStack {
     }
 
     NodeC creaMazzo(int nCarte, int nMazzi, String[] semi, String gioco) {
-        int valore = 1;
         NodeC mc=null;
+        int valore = 1;
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
             for (int segno=0; segno<semi.length;segno++){  //creo le carte per ogni valore di ogni seme
                 while (valore<=(nCarte / semi.length)){
@@ -111,11 +111,11 @@ public class DynamicStack {
         if (gioco.equalsIgnoreCase("pinella")){
             numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
-
         while (numeroJolly>0){
             mc= new NodeC(new Carta(0,"Jolly"),mc);
             numeroJolly--;
         }
+
         size= NodeC.length(mc);
         return mc;
     }
