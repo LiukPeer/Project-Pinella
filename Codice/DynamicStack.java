@@ -3,11 +3,13 @@ package Codice;
 //DynamickStack.java
 public class DynamicStack {
     private NodeC top;
+    int size;
 
     //ultimo nodo aggiunto alla pila, "null" se non ce ne sono
 //COSTRUTTORE di una pila P = {} vuota
     public DynamicStack() {
         top = null;
+        size=0;
     }
 
     //test se la pila e' vuota
@@ -18,6 +20,7 @@ public class DynamicStack {
     //aggiungo un nodo in cima alla pila con un nuovo elemento x
     public void push(Carta x) {
         top = new NodeC(x, top);
+        size++;
     }
 
     //tolgo il nodo in cima alla pila e restituisco il suo contenuto
@@ -25,6 +28,7 @@ public class DynamicStack {
         assert !empty();
         Carta x = top.getCard();
         top = top.getNext(); //elimino l'ultimo nodo con contenuto x
+        size--;
         return x;
     }
 
@@ -68,6 +72,10 @@ public class DynamicStack {
         }
     }
 
+    public int size(){
+        return size;
+    }
+
     public DynamicStack(String gioco) {
         int numeroCarte;
         int numeroMazzi;
@@ -99,14 +107,17 @@ public class DynamicStack {
                 valore=1;
             }
         }
-        int numeroJolly=(nCarte*nMazzi)-NodeC.length(mc.topNode());
+
+        int numeroJolly=(nCarte*nMazzi)- mc.size();
         if (gioco.equalsIgnoreCase("pinella")){
             numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
+
         while (numeroJolly>0){
             mc.push(new Carta(0,"Jolly"));
             numeroJolly--;
         }
+
         return mc.topNode();
     }
 }
