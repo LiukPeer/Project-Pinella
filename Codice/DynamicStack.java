@@ -116,7 +116,7 @@ public class DynamicStack {
             mc= new NodeC(new Carta(0,"Jolly"),mc);
             numeroJolly--;
         }
-
+        size= NodeC.length(mc);
         return mc;
     }
 }
