@@ -87,7 +87,6 @@ public class DynamicStack {
             numeroCarte = 40;
             numeroMazzi = 1;
             top = creaMazzo(numeroCarte, numeroMazzi, new String[]{"Spade", "Bastoni", "Denari", "Coppe"}, gioco);
-            System.out.println("Non ancora sviluppato");
         } else {
             System.out.println("Tale gioco non esiste o non è stato implementato");
         }
@@ -95,12 +94,12 @@ public class DynamicStack {
 
     NodeC creaMazzo(int nCarte, int nMazzi, String[] semi, String gioco) {
         int valore = 1;
-        DynamicStack mc = new DynamicStack();
+        NodeC mc=null;
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
             for (int segno=0; segno<semi.length;segno++){  //creo le carte per ogni valore di ogni seme
                 while (valore<=(nCarte / semi.length)){
                     if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!semi[segno].equalsIgnoreCase("Cuori") && !semi[segno].equalsIgnoreCase("Quadri"))) {
-                        mc.push(new Carta(valore, semi[segno]));   //aggiugno le carte in cima alla lista dinamica
+                        mc= new NodeC(new Carta(valore, semi[segno]),mc);   //aggiugno le carte in cima alla lista dinamica
                     }
                     valore++;
                 }
@@ -108,16 +107,16 @@ public class DynamicStack {
             }
         }
 
-        int numeroJolly=(nCarte*nMazzi)- mc.size();
+        int numeroJolly=(nCarte*nMazzi)- NodeC.length(mc);
         if (gioco.equalsIgnoreCase("pinella")){
             numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
 
         while (numeroJolly>0){
-            mc.push(new Carta(0,"Jolly"));
+            mc= new NodeC(new Carta(0,"Jolly"),mc);
             numeroJolly--;
         }
 
-        return mc.topNode();
+        return mc;
     }
 }
