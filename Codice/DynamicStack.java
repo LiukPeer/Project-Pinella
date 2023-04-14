@@ -88,6 +88,7 @@ public class DynamicStack {
     }
 
     public DynamicStack(String gioco) {
+        size=0;
         int numeroCarte;
         int numeroMazzi;
         if (gioco.equalsIgnoreCase("pinella") || gioco.equalsIgnoreCase("machiavelli") || gioco.equalsIgnoreCase("scala")) {
@@ -111,6 +112,7 @@ public class DynamicStack {
                 while (valore<=(nCarte / semi.length)){
                     if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!semi[segno].equalsIgnoreCase("Cuori") && !semi[segno].equalsIgnoreCase("Quadri"))) {
                         mc= new NodeC(new Carta(valore, semi[segno]),mc);   //aggiugno le carte in cima alla lista dinamica
+                        size++;
                     }
                     valore++;
                 }
@@ -124,10 +126,9 @@ public class DynamicStack {
         }
         while (numeroJolly>0){
             mc= new NodeC(new Carta(0,"Jolly"),mc);
+            size++;
             numeroJolly--;
         }
-
-        size= NodeC.length(mc);
         return mc;
     }
 }
