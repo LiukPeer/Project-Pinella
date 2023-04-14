@@ -1,4 +1,4 @@
-package Codice;
+package Codice.Objects;
 
 public class Carta {
     private int valore;

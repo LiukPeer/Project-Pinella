@@ -1,5 +1,7 @@
 package Codice;
 
+import Codice.Objects.DynamicStack;
+
 import java.util.Scanner;
 
 public class gameStart {

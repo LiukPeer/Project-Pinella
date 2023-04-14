@@ -1,4 +1,4 @@
-package Codice;
+package Codice.Objects;
 
 //NodeC.java
 public class NodeC {
