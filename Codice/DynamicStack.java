@@ -34,11 +34,11 @@ public class DynamicStack {
 
     //restituisco il contenuto del nodo in cima alla pila senza
 //toglierlo
-    public Carta top() {
+    public Carta getTopCard() {
         assert !empty();
         return top.getCard();
     }
-    public NodeC topNode() {
+    public NodeC getTopNode() {
         assert !empty();
         return top;
     }
