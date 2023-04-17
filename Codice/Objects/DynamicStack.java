@@ -22,13 +22,13 @@ public class DynamicStack {
         return top == null;
     }
 
-    //aggiungo un nodo in cima alla pila con un nuovo elemento x
+    //aggiungo una carta in cima alla pila
     public void push(int value, String sign) {
         top = new NodoCarta(value, sign, top);
         size++;
     }
 
-    //tolgo il nodo in cima alla pila e restituisco il suo contenuto
+    //tolgo il nodo in cima alla pila
     public void pop() {
         assert !empty();
         top = top.getNext(); //elimino l'ultimo nodo con contenuto x
@@ -63,25 +63,6 @@ public class DynamicStack {
         }
         return s;
     }
-
-    /* NOTA: dobbiamo salvare top in temp. Se avessimo usato top al posto di
-  temp, scrivendo top=top.getNext(), avremmo cancellato l’indirizzo della
-  cima della pila, e quindi perso l’accesso alla pila dopo l’esecuzione del
-  metodo. */
-//COSTRUTTORE di una pila P = {1,...,n}, pila vuota se n<=0.
-//Aggiunge i nodi nell’ordine da n fino a 1. 1 sta nel top.
-
-
- /*   public DynamicStack(NodoCarta inizio, Carta fine){
-        NodoCarta temp= new NodoCarta(inizio.getCard(),inizio.getNext());
-        top=temp;
-        while (!temp.getCard().equals(fine)){
-            push(temp.getCard());
-            temp=temp.getNext();
-        }
-        size= NodoCarta.length(temp);
-    } */
-
     public int size(){
         return size;
     }
