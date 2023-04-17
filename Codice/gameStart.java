@@ -1,5 +1,7 @@
 package Codice;
 
+import Codice.Objects.DynamicStack;
+
 import java.util.Scanner;
 
 public class gameStart {
@@ -14,14 +16,10 @@ public class gameStart {
         int numGiocatori = gameSelect.nextInt();
         assert numGiocatori >0 : "I giocatori non possono essere 0";
         String[] giocatori = new String[numGiocatori];
-        for (int ix=1; ix<= numGiocatori; ix++){
-            System.out.println("Inserire nome del giocatore "+ix);
+        for (int playerOfArray=1; playerOfArray<= numGiocatori; playerOfArray++){
+            System.out.println("Inserire nome del giocatore "+playerOfArray);
             gameSelect = new Scanner(System.in);
-            giocatori[ix-1]=gameSelect.nextLine();
-        }
-
-        if (game.equalsIgnoreCase("pinella")){
-            strutturaGioco.pinellaGame(giocatori, mazzoGioco);
+            giocatori[playerOfArray-1]=gameSelect.nextLine();
         }
     }
 }

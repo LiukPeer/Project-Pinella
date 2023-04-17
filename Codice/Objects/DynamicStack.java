@@ -1,4 +1,4 @@
-package Codice;
+package Codice.Objects;
 
 //DynamickStack.java
 public class DynamicStack {
@@ -62,21 +62,33 @@ public class DynamicStack {
   metodo. */
 //COSTRUTTORE di una pila P = {1,...,n}, pila vuota se n<=0.
 //Aggiunge i nodi nell’ordine da n fino a 1. 1 sta nel top.
-    public DynamicStack(Carta n) {
+    public DynamicStack(Carta cart) {
         top = null;
-        int i = n.getValore();
-        while (i >= 1) //aggiungo il nodo che contiene i
-        {
-            top = new NodeC(new Carta(i, n.getSeme()), top);
-            --i;
-        }
+        top = new NodeC(new Carta(cart.getValore(), cart.getSeme()), top);
+        size=1;
     }
+
+    public DynamicStack(NodeC nodo){
+        top=nodo;
+        size= NodeC.length(nodo);
+    }
+
+ /*   public DynamicStack(NodeC inizio, Carta fine){
+        NodeC temp= new NodeC(inizio.getCard(),inizio.getNext());
+        top=temp;
+        while (!temp.getCard().equals(fine)){
+            push(temp.getCard());
+            temp=temp.getNext();
+        }
+        size= NodeC.length(temp);
+    } */
 
     public int size(){
         return size;
     }
 
     public DynamicStack(String gioco) {
+        size=0;
         int numeroCarte;
         int numeroMazzi;
         if (gioco.equalsIgnoreCase("pinella") || gioco.equalsIgnoreCase("machiavelli") || gioco.equalsIgnoreCase("scala")) {
@@ -100,6 +112,7 @@ public class DynamicStack {
                 while (valore<=(nCarte / semi.length)){
                     if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!semi[segno].equalsIgnoreCase("Cuori") && !semi[segno].equalsIgnoreCase("Quadri"))) {
                         mc= new NodeC(new Carta(valore, semi[segno]),mc);   //aggiugno le carte in cima alla lista dinamica
+                        size++;
                     }
                     valore++;
                 }
@@ -113,10 +126,9 @@ public class DynamicStack {
         }
         while (numeroJolly>0){
             mc= new NodeC(new Carta(0,"Jolly"),mc);
+            size++;
             numeroJolly--;
         }
-
-        size= NodeC.length(mc);
         return mc;
     }
 }
