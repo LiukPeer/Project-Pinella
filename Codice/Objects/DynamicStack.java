@@ -2,7 +2,7 @@ package Codice.Objects;
 
 //DynamickStack.java
 public class DynamicStack {
-    private NodeC top;
+    private NodoCarta top;
     int size;
 
     //ultimo nodo aggiunto alla pila, "null" se non ce ne sono
@@ -12,45 +12,53 @@ public class DynamicStack {
         size=0;
     }
 
+    public DynamicStack(NodoCarta nodo){
+        top=nodo;
+        size= NodoCarta.length(nodo);
+    }
+
     //test se la pila e' vuota
     public boolean empty() {
         return top == null;
     }
 
     //aggiungo un nodo in cima alla pila con un nuovo elemento x
-    public void push(Carta x) {
-        top = new NodeC(x, top);
+    public void push(int value, String sign) {
+        top = new NodoCarta(value, sign, top);
         size++;
     }
 
     //tolgo il nodo in cima alla pila e restituisco il suo contenuto
-    public Carta pop() {
+    public void pop() {
         assert !empty();
-        Carta x = top.getCard();
         top = top.getNext(); //elimino l'ultimo nodo con contenuto x
         size--;
-        return x;
     }
 
     //restituisco il contenuto del nodo in cima alla pila senza
 //toglierlo
-    public Carta getTopCard() {
+    public int getTopValue() {
         assert !empty();
-        return top.getCard();
+        return top.getValore();
     }
-    public NodeC getTopNode() {
+
+    public String getTopSign() {
+        assert !empty();
+        return top.getSeme();
+    }
+    public NodoCarta getTopNode() {
         assert !empty();
         return top;
     }
 
-    /* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodeC
+    /* STAMPA. Per scorrere una pila usiamo una variabile di tipo NodoCarta
     che parte da top e procede lungo la pila fino a arrivare al nodo
-    null. Usiamo di nuovo una conversione NodeC-->String. */
+    null. Usiamo di nuovo una conversione NodoCarta-->String. */
     public String toString() {
-        NodeC temp = top; //partiamo dal nodo in cima alla pila
+        NodoCarta temp = top; //partiamo dal nodo in cima alla pila
         String s = ""; //accumuliamo gli elementi in s
         while (temp != null) { //ci fermiamo quando temp arriva al nodo null
-            s = s + " || " + temp.getCard() + "\n"; //aggiungiamo l’elemento in cima
+            s = s + " || " + temp + "\n"; //aggiungiamo l’elemento in cima
             temp = temp.getNext(); //avanziamo al nodo successivo
         }
         return s;
@@ -62,25 +70,16 @@ public class DynamicStack {
   metodo. */
 //COSTRUTTORE di una pila P = {1,...,n}, pila vuota se n<=0.
 //Aggiunge i nodi nell’ordine da n fino a 1. 1 sta nel top.
-    public DynamicStack(Carta cart) {
-        top = null;
-        top = new NodeC(new Carta(cart.getValore(), cart.getSeme()), top);
-        size=1;
-    }
 
-    public DynamicStack(NodeC nodo){
-        top=nodo;
-        size= NodeC.length(nodo);
-    }
 
- /*   public DynamicStack(NodeC inizio, Carta fine){
-        NodeC temp= new NodeC(inizio.getCard(),inizio.getNext());
+ /*   public DynamicStack(NodoCarta inizio, Carta fine){
+        NodoCarta temp= new NodoCarta(inizio.getCard(),inizio.getNext());
         top=temp;
         while (!temp.getCard().equals(fine)){
             push(temp.getCard());
             temp=temp.getNext();
         }
-        size= NodeC.length(temp);
+        size= NodoCarta.length(temp);
     } */
 
     public int size(){
@@ -104,14 +103,14 @@ public class DynamicStack {
         }
     }
 
-    NodeC creaMazzo(int nCarte, int nMazzi, String[] semi, String gioco) {
-        NodeC mc=null;
+    NodoCarta creaMazzo(int nCarte, int nMazzi, String[] semi, String gioco) {
+        NodoCarta mc=null;
         int valore = 1;
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
             for (int segno=0; segno<semi.length;segno++){  //creo le carte per ogni valore di ogni seme
                 while (valore<=(nCarte / semi.length)){
                     if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!semi[segno].equalsIgnoreCase("Cuori") && !semi[segno].equalsIgnoreCase("Quadri"))) {
-                        mc= new NodeC(new Carta(valore, semi[segno]),mc);   //aggiugno le carte in cima alla lista dinamica
+                        mc= new NodoCarta(valore, semi[segno],mc);   //aggiugno le carte in cima alla lista dinamica
                         size++;
                     }
                     valore++;
@@ -120,12 +119,12 @@ public class DynamicStack {
             }
         }
 
-        int numeroJolly=(nCarte*nMazzi)- NodeC.length(mc);
+        int numeroJolly=(nCarte*nMazzi)- NodoCarta.length(mc);
         if (gioco.equalsIgnoreCase("pinella")){
             numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
         while (numeroJolly>0){
-            mc= new NodeC(new Carta(0,"Jolly"),mc);
+            mc= new NodoCarta(0,"Jolly",mc);
             size++;
             numeroJolly--;
         }
