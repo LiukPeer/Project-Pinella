@@ -88,15 +88,15 @@ public class DynamicStack {
         NodoCarta mc=null;
         int valore = 1;
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
-            for (int segno=0; segno<semi.length;segno++){  //creo le carte per ogni valore di ogni seme
-                while (valore<=(nCarte / semi.length)){
-                    if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!semi[segno].equalsIgnoreCase("Cuori") && !semi[segno].equalsIgnoreCase("Quadri"))) {
-                        mc= new NodoCarta(valore, semi[segno],mc);   //aggiugno le carte in cima alla lista dinamica
+            for (String s : semi) {  //creo le carte per ogni valore di ogni seme
+                while (valore <= (nCarte / semi.length)) {
+                    if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!s.equalsIgnoreCase("Cuori") && !s.equalsIgnoreCase("Quadri"))) {
+                        mc = new NodoCarta(valore, s, mc);   //aggiugno le carte in cima alla lista dinamica
                         size++;
                     }
                     valore++;
                 }
-                valore=1;
+                valore = 1;
             }
         }
 
