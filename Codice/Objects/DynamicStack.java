@@ -85,13 +85,13 @@ public class DynamicStack {
     }
 
     NodoCarta creaMazzo(int nCarte, int nMazzi, String[] semi, String gioco) {
-        NodoCarta mc=null;
+        NodoCarta tempTop=null;
         int valore = 1;
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
             for (String s : semi) {  //creo le carte per ogni valore di ogni seme
                 while (valore <= (nCarte / semi.length)) {
                     if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!s.equalsIgnoreCase("Cuori") && !s.equalsIgnoreCase("Quadri"))) {
-                        mc = new NodoCarta(valore, s, mc);   //aggiugno le carte in cima alla lista dinamica
+                        tempTop = new NodoCarta(valore, s, tempTop);   //aggiugno le carte in cima alla lista dinamica
                         size++;
                     }
                     valore++;
@@ -100,15 +100,15 @@ public class DynamicStack {
             }
         }
 
-        int numeroJolly=(nCarte*nMazzi)- NodoCarta.length(mc);
+        int numeroJolly=(nCarte*nMazzi)- NodoCarta.length(tempTop);
         if (gioco.equalsIgnoreCase("pinella")){
             numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
         while (numeroJolly>0){
-            mc= new NodoCarta(0,"Jolly",mc);
+            tempTop= new NodoCarta(0,"Jolly",tempTop);
             size++;
             numeroJolly--;
         }
-        return mc;
+        return tempTop;
     }
 }
