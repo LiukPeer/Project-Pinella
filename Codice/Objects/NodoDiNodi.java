@@ -16,4 +16,12 @@ public class NodoDiNodi {
     public void setNext(NodoDiNodi next) {
         this.next = next;
     }
+
+    public NodoDiNodi getNext() {
+        return next;
+    }
+
+    public NodoCarta getElemento() {
+        return elemento;
+    }
 }

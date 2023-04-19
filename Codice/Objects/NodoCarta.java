@@ -4,10 +4,6 @@ public class NodoCarta{
     private int valore;
     private String seme;
     private NodoCarta next;
-
-    //Da implementare: il giocatore viene incluso nei nodi per determinare a chi appartiene una carta.
-    //                 Quando la carta è nel mazzo o scartata l'appartenenza è null.
-
     public NodoCarta(int value, String sign, NodoCarta next) {
         this.valore = value;
         this.seme = sign;
