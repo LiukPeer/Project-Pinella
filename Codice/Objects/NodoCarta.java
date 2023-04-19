@@ -1,7 +1,6 @@
 package Codice.Objects;
 
-//NodoCarta.java
-public class NodoCarta {
+public class NodoCarta{
     private int valore;
     private String seme;
     private NodoCarta next;
