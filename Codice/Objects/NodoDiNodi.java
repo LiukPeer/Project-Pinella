@@ -4,6 +4,11 @@ public class NodoDiNodi {
     private NodoCarta elemento;
     private NodoDiNodi next;
 
+    public NodoDiNodi(){
+        this.elemento=null;
+        this.next=null;
+    }
+
     public NodoDiNodi(NodoCarta elem,NodoDiNodi pros){
         this.elemento=elem;
         this.next=pros;
