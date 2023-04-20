@@ -3,6 +3,7 @@ package Codice;
 import Codice.Objects.DynamicStack;
 import Codice.Objects.Giocatore;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class gameStart {
@@ -21,31 +22,18 @@ public class gameStart {
         if (coppie){
             System.out.println("Si giocherà a squadre\nI giocatori 1 e 3 e i giocatori 2 e 4 saranno assieme");
         }
-        String[] players= new String[numGiocatori];
-        for (int playerOfArray=0; playerOfArray< players.length; playerOfArray++){
-            System.out.println("Inserire nome del giocatore "+(playerOfArray+1));
+        ArrayList<Giocatore> players = new ArrayList<>();
+        for (int ind=0; ind<numGiocatori; ind++){
+            System.out.println("Inserire nome del giocatore "+(ind+1));
             Scanner nameSelect = new Scanner(System.in);
-            players[playerOfArray]=nameSelect.nextLine();
+            String nome=nameSelect.nextLine();
+            players.add(new Giocatore(nome, null, null, null));
         }
-        if (numGiocatori==2){
-            Giocatore gioc1 = new Giocatore(players[0], null, null, null);
-            Giocatore gioc2 = new Giocatore(players[1], null, null, null);
-        }
-        else if (numGiocatori==3) {
-            Giocatore gioc1 = new Giocatore(players[0], null, null, null);
-            Giocatore gioc2 = new Giocatore(players[1], null, null, null);
-            Giocatore gioc3 = new Giocatore(players[2], null, null, null);
-        }
-        else if (numGiocatori==4) {
-            Giocatore gioc1 = new Giocatore(players[0], null, null, null);
-            Giocatore gioc2 = new Giocatore(players[1], null, null, null);
-            Giocatore gioc3 = new Giocatore(players[2], null, null, null);
-            Giocatore gioc4 = new Giocatore(players[3], null, null, null);
-
-            gioc1.setAlleati(gioc3);
-            gioc2.setAlleati(gioc4);
-            gioc3.setAlleati(gioc1);
-            gioc4.setAlleati(gioc2);
+        if (coppie){
+            players.get(0).setAlleati(players.get(2));
+            players.get(1).setAlleati(players.get(3));
+            players.get(2).setAlleati(players.get(0));
+            players.get(3).setAlleati(players.get(1));
         }
     }
 }
