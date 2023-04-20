@@ -3,10 +3,10 @@ package Codice.Objects;
 public class Giocatore {
     protected String nomeGiocatore;
     protected DynamicStack manoGiocatore;
-    protected NodoDiNodi carteTavolo;
+    protected DynamicStack carteTavolo;
     protected int punteggio;
 
-    public Giocatore(String nome, DynamicStack mano, NodoDiNodi carteT){
+    public Giocatore(String nome, DynamicStack mano, DynamicStack carteT){
         nomeGiocatore=nome;
         manoGiocatore=mano;
         carteTavolo=carteT;
@@ -25,22 +25,14 @@ public class Giocatore {
         punteggio=0;
     }
 
-    public void setCarteTavolo(NodoDiNodi carteTavolo) {
+    public void setCarteTavolo(DynamicStack carteTavolo) {
         this.carteTavolo = carteTavolo;
     }
-
-    public NodoDiNodi getCarteTavolo() {
+    public DynamicStack getCarteTavolo() {
         return carteTavolo;
     }
-
     public int getPunteggio() {
         return punteggio;
-    }
-
-    public void aggiungiCarteProprie(NodoCarta top){
-        NodoDiNodi a = new NodoDiNodi(top, null);
-        a.setNext(carteTavolo);
-        carteTavolo=a;
     }
 
     public void addManoGiocatore(NodoCarta nodo) {
