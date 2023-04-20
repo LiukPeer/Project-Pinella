@@ -84,13 +84,52 @@ public class gameStart {
 
     public static void turno(gameStart partita){
         if (partita.getGiocoSelezionato().equalsIgnoreCase("pinella")){
+            for (int index=0; index<partita.getPlayers().size();index++){
+                int nManoRandom=1;
+                while (nManoRandom<=13){
+                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+                    nManoRandom++;
+                }
+            }
+
             System.out.println("Pinella");
         }
         else if (partita.getGiocoSelezionato().equalsIgnoreCase("machiavelli")){
+            for (int index=0; index<partita.getPlayers().size();index++){
+                int nManoRandom=1;
+                while (nManoRandom<=13){
+                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+                    nManoRandom++;
+                }
+            }
             System.out.println("Machiavelli");
         }
-        else if(partita.getGiocoSelezionato().equalsIgnoreCase("scala")){
-            System.out.println("Scala");
+        else if(partita.getGiocoSelezionato().equalsIgnoreCase("scopa")){
+            for (int index=0; index<partita.getPlayers().size();index++){
+                int nManoRandom=1;
+                while (nManoRandom<=3){
+                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+                    nManoRandom++;
+                }
+            }
+            int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+            //AGGIUNGERE 4 CARTE AL TAVOLO CASUALMENTE DAL MAZZO
+            System.out.println("Scopa");
+        }
+        else if(partita.getGiocoSelezionato().equalsIgnoreCase("briscola")){
+            for (int index=0; index<partita.getPlayers().size();index++){
+                int nManoRandom=1;
+                while (nManoRandom<=3){
+                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+                    nManoRandom++;
+                }
+            }
+            //PRENDERE UNA CARTA CASUALE E SEGNARLA COME SEGNO DELLA BRISCOLA
+            System.out.println("Briscola");
         }
     }
 }

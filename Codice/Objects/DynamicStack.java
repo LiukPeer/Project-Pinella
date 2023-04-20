@@ -13,8 +13,28 @@ public class DynamicStack {
     }
 
     public DynamicStack(NodoCarta nodo){
-        top=nodo;
+        this.top=new NodoCarta(nodo.getValore(), nodo.getSeme(), top);
         size= NodoCarta.length(nodo);
+    }
+
+    public NodoCarta pescaCarta(int indiceCarta){
+        NodoCarta result;
+        if (indiceCarta!=1){
+            int conta=1;
+            NodoCarta temp = top;
+            while (conta<indiceCarta-1 && temp.getNext()!=null){
+                temp=temp.getNext();
+                conta++;
+            }
+            result=new NodoCarta(temp.getNext().getValore(),temp.getNext().getSeme(),null);
+            temp.removeNext();
+        }
+        else{
+            result=top;
+            top=top.getNext();
+        }
+        size--;
+        return result;
     }
 
     //test se la pila e' vuota
@@ -25,6 +45,15 @@ public class DynamicStack {
     //aggiungo una carta in cima alla pila
     public void push(int value, String sign) {
         top = new NodoCarta(value, sign, top);
+        size++;
+    }
+    public void push(NodoCarta nodoCarta) {
+        if (top!=null){
+            top = new NodoCarta(nodoCarta.getValore(),nodoCarta.getSeme(), top);
+        }
+        else{
+            top = new NodoCarta(nodoCarta.getValore(),nodoCarta.getSeme(), null);
+        }
         size++;
     }
 
@@ -63,7 +92,7 @@ public class DynamicStack {
         }
         return s;
     }
-    public int size(){
+    public int getSize(){
         return size;
     }
 

@@ -14,6 +14,10 @@ public class NodoDiNodi {
         this.next=pros;
     }
 
+    public void push(NodoCarta nodoCarta){
+        
+    }
+
     public void setElemento(NodoCarta elemento) {
         this.elemento = elemento;
     }

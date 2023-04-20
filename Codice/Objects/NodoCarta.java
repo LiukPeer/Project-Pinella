@@ -30,6 +30,12 @@ public class NodoCarta{
         return this.next;
     }
 
+    public void removeNext(){
+        if (next!=null){
+            setNext(this.next.getNext());
+        }
+    }
+
     public void setNext(NodoCarta next) {
         this.next = next;
     }

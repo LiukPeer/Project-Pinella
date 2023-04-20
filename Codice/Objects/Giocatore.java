@@ -14,7 +14,7 @@ public class Giocatore {
     }
     public Giocatore(String nome){
         nomeGiocatore=nome;
-        manoGiocatore=null;
+        manoGiocatore=new DynamicStack();
         carteTavolo=null;
         punteggio=0;
     }
@@ -41,5 +41,9 @@ public class Giocatore {
         NodoDiNodi a = new NodoDiNodi(top, null);
         a.setNext(carteTavolo);
         carteTavolo=a;
+    }
+
+    public void addManoGiocatore(NodoCarta nodo) {
+        manoGiocatore.push(nodo);
     }
 }
