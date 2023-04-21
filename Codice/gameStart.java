@@ -86,32 +86,34 @@ public class gameStart {
     }
 
     public static void inizioPartita(gameStart partita){
-        int carteInMano;
+        int quanteCarteInMano;
         if (partita.getGiocoSelezionato().equalsIgnoreCase("pinella")){
-            carteInMano=13;
-            creaManoTuttiGiocatori(partita,carteInMano);
+            quanteCarteInMano=13;
+            creaManoTuttiGiocatori(partita,quanteCarteInMano);
             System.out.println("Pinella");
         }
         else if (partita.getGiocoSelezionato().equalsIgnoreCase("machiavelli")){
-            carteInMano=13;
-            creaManoTuttiGiocatori(partita,carteInMano);
+            quanteCarteInMano=13;
+            creaManoTuttiGiocatori(partita,quanteCarteInMano);
             System.out.println("Machiavelli");
         }
         else if(partita.getGiocoSelezionato().equalsIgnoreCase("scopa")){
-            carteInMano=3;
-            creaManoTuttiGiocatori(partita,carteInMano);
-            int numeroCartaCasuale = getNumeroCartaCasuale(partita);
-            for (int con=0; con<4;con++){
-                partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
-            }
+            quanteCarteInMano=3;
+            creaManoTuttiGiocatori(partita,quanteCarteInMano);
+            carteTavoloInizialiScopa(partita);
             System.out.println("Scopa");
         }
         else if(partita.getGiocoSelezionato().equalsIgnoreCase("briscola")){
-            carteInMano=3;
-            creaManoTuttiGiocatori(partita,carteInMano);
+            quanteCarteInMano=3;
+            creaManoTuttiGiocatori(partita,quanteCarteInMano);
             //PRENDERE UNA CARTA CASUALE E SEGNARLA COME SEGNO DELLA BRISCOLA
             System.out.println("Briscola");
         }
+    }
+
+    private static void carteTavoloInizialiScopa(gameStart partita) {
+        for (int con=0; con<4;con++)
+            partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().pescaCarta(getNumeroCartaCasuale(partita)));
     }
 
     private static void creaManoTuttiGiocatori(gameStart partita, int carteInMano) {
