@@ -1,12 +1,14 @@
 package Codice.Objects;
 
+import java.util.LinkedList;
+
 public class Giocatore {
     protected String nomeGiocatore;
     protected DynamicStack manoGiocatore;
-    protected DynamicStack carteTavolo;
+    protected LinkedList carteTavolo;
     protected int punteggio;
 
-    public Giocatore(String nome, DynamicStack mano, DynamicStack carteT){
+    public Giocatore(String nome, DynamicStack mano, LinkedList carteT){
         nomeGiocatore=nome;
         manoGiocatore=mano;
         carteTavolo=carteT;
@@ -25,10 +27,10 @@ public class Giocatore {
         punteggio=0;
     }
 
-    public void setCarteTavolo(DynamicStack carteTavolo) {
+    public void setCarteTavolo(LinkedList carteTavolo) {
         this.carteTavolo = carteTavolo;
     }
-    public DynamicStack getCarteTavolo() {
+    public LinkedList getCarteTavolo() {
         return carteTavolo;
     }
     public int getPunteggio() {

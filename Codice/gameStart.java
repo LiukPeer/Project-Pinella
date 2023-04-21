@@ -2,9 +2,10 @@ package Codice;
 
 import Codice.Objects.DynamicStack;
 import Codice.Objects.Giocatore;
-import Codice.Objects.NodoDiNodi;
+import Codice.Objects.NodoCarta;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class gameStart {
@@ -68,15 +69,15 @@ public class gameStart {
             partita.getPlayers().add(new Giocatore(nome));
         }
         if (coppie && giocoASquadre) {
-            DynamicStack CoppiaUno= new DynamicStack();
+            LinkedList<NodoCarta> CoppiaUno= new LinkedList<>();
             partita.getPlayers().get(0).setCarteTavolo(CoppiaUno);
             partita.getPlayers().get(2).setCarteTavolo(CoppiaUno);
-            DynamicStack CoppiaDue= new DynamicStack();
-            partita.getPlayers().get(2).setCarteTavolo(CoppiaDue);
+            LinkedList<NodoCarta> CoppiaDue= new LinkedList<>();
+            partita.getPlayers().get(1).setCarteTavolo(CoppiaDue);
             partita.getPlayers().get(3).setCarteTavolo(CoppiaDue);
         }
         else {
-            DynamicStack Tavolo= new DynamicStack();
+            LinkedList<NodoCarta> Tavolo= new LinkedList<>();
             for (int index=0; index<partita.getPlayers().size();index++){
                 partita.getPlayers().get(index).setCarteTavolo(Tavolo);
             }
@@ -120,7 +121,9 @@ public class gameStart {
                 }
             }
             int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
-            partita.getPlayers().get(0).getCarteTavolo().push(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+            for (int con=0; con<4;con++){
+                partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+            }
             System.out.println("Scopa");
         }
 

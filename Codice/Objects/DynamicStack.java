@@ -2,7 +2,7 @@ package Codice.Objects;
 
 //DynamickStack.java
 public class DynamicStack {
-    private NodoCarta top;
+    protected NodoCarta top;
     int size;
 
     //ultimo nodo aggiunto alla pila, "null" se non ce ne sono
