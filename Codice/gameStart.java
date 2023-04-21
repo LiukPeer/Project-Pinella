@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class gameStart {
-    ArrayList<Giocatore> players;
+    LinkedList<Giocatore> players;
     String giocoSelezionato;
-    DynamicStack mazzoGioco;
+    LinkedList<NodoCarta> mazzoGioco;
     DynamicStack carteScartate;
 
     gameStart(){
@@ -28,19 +28,19 @@ public class gameStart {
         return giocoSelezionato;
     }
 
-    public void setPlayers(ArrayList<Giocatore> players) {
+    public void setPlayers(LinkedList<Giocatore> players) {
         this.players = players;
     }
 
-    public ArrayList<Giocatore> getPlayers() {
+    public LinkedList<Giocatore> getPlayers() {
         return players;
     }
 
-    public void setMazzoGioco(DynamicStack mazzoGioco) {
+    public void setMazzoGioco(LinkedList<NodoCarta> mazzoGioco) {
         this.mazzoGioco = mazzoGioco;
     }
 
-    public DynamicStack getMazzoGioco() {
+    public LinkedList<NodoCarta> getMazzoGioco() {
         return mazzoGioco;
     }
 
@@ -51,7 +51,7 @@ public class gameStart {
         System.out.println("Benvenuto! Seleziona il gioco");
         System.out.println("-Pinella\n-Machiavelli\n-Scopa\n-Briscola");
         partita.setGiocoSelezionato(gameSelect.nextLine());
-        partita.setMazzoGioco(new DynamicStack(partita.getGiocoSelezionato()));
+        creaMazzo(partita);
 
         System.out.println("Selezionare numero di giocatori");
         int numGiocatori = gameSelect.nextInt();
@@ -67,7 +67,7 @@ public class gameStart {
     }
 
     private static void inserisciGiocatoriConNome(gameStart partita, int numGiocatori) {
-        partita.setPlayers(new ArrayList<>());
+        partita.setPlayers(new LinkedList<>());
         for (int ind = 0; ind < numGiocatori; ind++) {
             System.out.println("Inserire nome del giocatore " + (ind + 1));
             Scanner nameSelect = new Scanner(System.in);
@@ -95,23 +95,23 @@ public class gameStart {
 
     public static void inizioPartita(gameStart partita){
         int quanteCarteInMano;
-        if (partita.getGiocoSelezionato().equalsIgnoreCase("pinella")){
+        if (booleanControlloGioco(partita, "pinella")){ //pinella
             quanteCarteInMano=13;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             System.out.println("Pinella");
         }
-        else if (partita.getGiocoSelezionato().equalsIgnoreCase("machiavelli")){
+        else if (booleanControlloGioco(partita, "machiavelli")){ //machiavelli
             quanteCarteInMano=13;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             System.out.println("Machiavelli");
         }
-        else if(partita.getGiocoSelezionato().equalsIgnoreCase("scopa")){
+        else if(booleanControlloGioco(partita, "scopa")){ //scopa
             quanteCarteInMano=3;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             carteTavoloInizialiScopa(partita);
             System.out.println("Scopa");
         }
-        else if(partita.getGiocoSelezionato().equalsIgnoreCase("briscola")){
+        else if(booleanControlloGioco(partita, "briscola")){ //briscola
             quanteCarteInMano=3;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             //PRENDERE UNA CARTA CASUALE E SEGNARLA COME SEGNO DELLA BRISCOLA
@@ -119,9 +119,13 @@ public class gameStart {
         }
     }
 
+    private static boolean booleanControlloGioco(gameStart partita, String giocoDaControllare) {
+        return partita.getGiocoSelezionato().equalsIgnoreCase(giocoDaControllare);
+    }
+
     private static void carteTavoloInizialiScopa(gameStart partita) {
         for (int con=0; con<4;con++)
-            partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().pescaCarta(getNumeroCartaCasuale(partita)));
+            partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().get(getNumeroCartaCasuale(partita)));
     }
 
     private static void creaManoTuttiGiocatori(gameStart partita, int carteInMano) {
@@ -135,10 +139,53 @@ public class gameStart {
     }
 
     private static int getNumeroCartaCasuale(gameStart partita) {
-        return (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+        return (int)((Math.random() * partita.getMazzoGioco().size()));
     }
 
     private static void aggiungiCartaPescataMano(gameStart partita, int index, int numeroCartaCasuale) {
-        partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
+        partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().get(numeroCartaCasuale));
     }
+
+    private static void creaMazzo(gameStart partita){
+        int numeroCarte;
+        int numeroMazzi;
+        if (booleanControlloGioco(partita,"pinella") || booleanControlloGioco(partita,"machiavelli") || booleanControlloGioco(partita,"scala")) {
+            numeroCarte = 54;
+            numeroMazzi = 2;
+            partita.setMazzoGioco(creaMazzoSupport(partita,numeroCarte, numeroMazzi, new String[]{"Picche", "Cuori", "Fiori", "Quadri"}, partita.getGiocoSelezionato()));
+        } else if (booleanControlloGioco(partita,"scopa") || booleanControlloGioco(partita,"briscola") ||booleanControlloGioco(partita,"scopone")) {
+            numeroCarte = 40;
+            numeroMazzi = 1;
+            partita.setMazzoGioco(creaMazzoSupport(partita,numeroCarte, numeroMazzi, new String[]{"Spade", "Bastoni", "Denari", "Coppe"}, partita.getGiocoSelezionato()));
+        } else {
+            System.out.println("Tale gioco non esiste o non è stato implementato");
+        }
+    }
+
+    private static LinkedList<NodoCarta> creaMazzoSupport(gameStart partita, int nCarte, int nMazzi, String[] semi, String gioco) {
+        LinkedList<NodoCarta> Mazzo= new LinkedList<>();
+        int valore = 1;
+        for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
+            for (String s : semi) {  //creo le carte per ogni valore di ogni seme
+                while (valore <= (nCarte / semi.length)) {
+                    if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!s.equalsIgnoreCase("Cuori") && !s.equalsIgnoreCase("Quadri"))) {
+                        Mazzo.add(new NodoCarta(valore, s, null)); //aggiugno le carte in cima alla lista dinamica
+                    }
+                    valore++;
+                }
+                valore = 1;
+            }
+        }
+
+        int numeroJolly=(nCarte*nMazzi)- Mazzo.size();
+        if (booleanControlloGioco(partita,"pinella")){
+            numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
+        }
+        while (numeroJolly>0){
+            Mazzo.add(new NodoCarta(0,"Jolly",null));
+            numeroJolly--;
+        }
+        return Mazzo;
+    }
+
 }
