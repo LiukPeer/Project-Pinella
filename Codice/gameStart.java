@@ -61,6 +61,12 @@ public class gameStart {
         if (coppie&&giocoASquadre) {
             System.out.println("Si giocherà a squadre\nI giocatori 1 e 3 e i giocatori 2 e 4 saranno assieme");
         }
+        inserisciGiocatoriConNome(partita, numGiocatori);
+        creaAreaTavoloGiocatori(partita, coppie, giocoASquadre);
+        inizioPartita(partita);
+    }
+
+    private static void inserisciGiocatoriConNome(gameStart partita, int numGiocatori) {
         partita.setPlayers(new ArrayList<>());
         for (int ind = 0; ind < numGiocatori; ind++) {
             System.out.println("Inserire nome del giocatore " + (ind + 1));
@@ -68,6 +74,9 @@ public class gameStart {
             String nome = nameSelect.nextLine();
             partita.getPlayers().add(new Giocatore(nome));
         }
+    }
+
+    private static void creaAreaTavoloGiocatori(gameStart partita, boolean coppie, boolean giocoASquadre) {
         if (coppie && giocoASquadre) {
             LinkedList<NodoCarta> CoppiaUno= new LinkedList<>();
             partita.getPlayers().get(0).setCarteTavolo(CoppiaUno);
@@ -78,11 +87,10 @@ public class gameStart {
         }
         else {
             LinkedList<NodoCarta> Tavolo= new LinkedList<>();
-            for (int index=0; index<partita.getPlayers().size();index++){
+            for (int index = 0; index< partita.getPlayers().size(); index++){
                 partita.getPlayers().get(index).setCarteTavolo(Tavolo);
             }
         }
-        inizioPartita(partita);
     }
 
     public static void inizioPartita(gameStart partita){
