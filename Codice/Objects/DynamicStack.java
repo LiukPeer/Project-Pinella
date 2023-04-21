@@ -58,7 +58,15 @@ public class DynamicStack {
     }
 
     //tolgo il nodo in cima alla pila
-    public void pop() {
+    public NodoCarta popReturn() {
+        assert !empty();
+        NodoCarta temp = new NodoCarta(top.getValore(),top.getSeme(),null);
+        top = top.getNext(); //elimino l'ultimo nodo con contenuto x
+        size--;
+        return temp;
+    }
+
+    public void popVoid() {
         assert !empty();
         top = top.getNext(); //elimino l'ultimo nodo con contenuto x
         size--;

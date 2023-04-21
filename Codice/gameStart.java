@@ -44,6 +44,10 @@ public class gameStart {
         return mazzoGioco;
     }
 
+    public DynamicStack getCarteScartate() {
+        return carteScartate;
+    }
+
     public static void main(String[] args) {
         gameStart partita = new gameStart();
         Scanner gameSelect = new Scanner(System.in);
@@ -98,6 +102,7 @@ public class gameStart {
         if (booleanControlloGioco(partita, "pinella")){ //pinella
             quanteCarteInMano=13;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
+            spostaMazzoCarteScartate(partita, getNumeroCartaCasuale(partita));
             System.out.println("Pinella");
         }
         else if (booleanControlloGioco(partita, "machiavelli")){ //machiavelli
@@ -124,15 +129,20 @@ public class gameStart {
     }
 
     private static void carteTavoloInizialiScopa(gameStart partita) {
-        for (int con=0; con<4;con++)
-            partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().get(getNumeroCartaCasuale(partita)));
+        for (int con=0; con<4;con++){
+            int index=getNumeroCartaCasuale(partita);
+            partita.getPlayers().get(0).getCarteTavolo().add(pescaCartaMazzo(partita, index));
+            partita.getMazzoGioco().remove(index);
+        }
     }
 
     private static void creaManoTuttiGiocatori(gameStart partita, int carteInMano) {
         for (int index=0; index<partita.getPlayers().size();index++){
             int nManoRandom=1;
             while (nManoRandom<=carteInMano){
-                aggiungiCartaPescataMano(partita, index, getNumeroCartaCasuale(partita));
+                int posizCartaCasuale=getNumeroCartaCasuale(partita);
+                aggiungiCartaPescataMano(partita, index, posizCartaCasuale);
+                partita.getMazzoGioco().remove(posizCartaCasuale);
                 nManoRandom++;
             }
         }
@@ -143,7 +153,15 @@ public class gameStart {
     }
 
     private static void aggiungiCartaPescataMano(gameStart partita, int index, int numeroCartaCasuale) {
-        partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().get(numeroCartaCasuale));
+        partita.getPlayers().get(index).addManoGiocatore(pescaCartaMazzo(partita, numeroCartaCasuale));
+    }
+
+    private static NodoCarta pescaCartaMazzo(gameStart partita, int numeroCarta) {
+        return partita.getMazzoGioco().get(numeroCarta);
+    }
+
+    private static void spostaMazzoCarteScartate(gameStart partita, int numeroCarta){
+        partita.getCarteScartate().push(pescaCartaMazzo(partita, numeroCarta));
     }
 
     private static void creaMazzo(gameStart partita){
@@ -168,7 +186,7 @@ public class gameStart {
         for (int n=nMazzi; n>0;n--){  //creo n volte le carte di un mazzo
             for (String s : semi) {  //creo le carte per ogni valore di ogni seme
                 while (valore <= (nCarte / semi.length)) {
-                    if (!gioco.equalsIgnoreCase("pinella") || (valore != 2) || (!s.equalsIgnoreCase("Cuori") && !s.equalsIgnoreCase("Quadri"))) {
+                    if (!booleanControlloGioco(partita,"pinella") || (valore != 2) || (!s.equalsIgnoreCase("Cuori") && !s.equalsIgnoreCase("Quadri"))) {
                         Mazzo.add(new NodoCarta(valore, s, null)); //aggiugno le carte in cima alla lista dinamica
                     }
                     valore++;
