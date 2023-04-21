@@ -82,62 +82,53 @@ public class gameStart {
                 partita.getPlayers().get(index).setCarteTavolo(Tavolo);
             }
         }
-        turno(partita);
+        inizioPartita(partita);
     }
 
-    public static void turno(gameStart partita){
+    public static void inizioPartita(gameStart partita){
+        int carteInMano;
         if (partita.getGiocoSelezionato().equalsIgnoreCase("pinella")){
-            for (int index=0; index<partita.getPlayers().size();index++){
-                int nManoRandom=1;
-                while (nManoRandom<=13){
-                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
-                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
-                    nManoRandom++;
-                }
-            }
-
+            carteInMano=13;
+            creaManoTuttiGiocatori(partita,carteInMano);
             System.out.println("Pinella");
         }
-
         else if (partita.getGiocoSelezionato().equalsIgnoreCase("machiavelli")){
-            for (int index=0; index<partita.getPlayers().size();index++){
-                int nManoRandom=1;
-                while (nManoRandom<=13){
-                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
-                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
-                    nManoRandom++;
-                }
-            }
+            carteInMano=13;
+            creaManoTuttiGiocatori(partita,carteInMano);
             System.out.println("Machiavelli");
         }
-
         else if(partita.getGiocoSelezionato().equalsIgnoreCase("scopa")){
-            for (int index=0; index<partita.getPlayers().size();index++){
-                int nManoRandom=1;
-                while (nManoRandom<=3){
-                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
-                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
-                    nManoRandom++;
-                }
-            }
-            int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+            carteInMano=3;
+            creaManoTuttiGiocatori(partita,carteInMano);
+            int numeroCartaCasuale = getNumeroCartaCasuale(partita);
             for (int con=0; con<4;con++){
                 partita.getPlayers().get(0).getCarteTavolo().add(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
             }
             System.out.println("Scopa");
         }
-
         else if(partita.getGiocoSelezionato().equalsIgnoreCase("briscola")){
-            for (int index=0; index<partita.getPlayers().size();index++){
-                int nManoRandom=1;
-                while (nManoRandom<=3){
-                    int numeroCartaCasuale = (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
-                    partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
-                    nManoRandom++;
-                }
-            }
+            carteInMano=3;
+            creaManoTuttiGiocatori(partita,carteInMano);
             //PRENDERE UNA CARTA CASUALE E SEGNARLA COME SEGNO DELLA BRISCOLA
             System.out.println("Briscola");
         }
+    }
+
+    private static void creaManoTuttiGiocatori(gameStart partita, int carteInMano) {
+        for (int index=0; index<partita.getPlayers().size();index++){
+            int nManoRandom=1;
+            while (nManoRandom<=carteInMano){
+                aggiungiCartaPescataMano(partita, index, getNumeroCartaCasuale(partita));
+                nManoRandom++;
+            }
+        }
+    }
+
+    private static int getNumeroCartaCasuale(gameStart partita) {
+        return (int)((Math.random() * partita.getMazzoGioco().getSize())+1);
+    }
+
+    private static void aggiungiCartaPescataMano(gameStart partita, int index, int numeroCartaCasuale) {
+        partita.getPlayers().get(index).addManoGiocatore(partita.getMazzoGioco().pescaCarta(numeroCartaCasuale));
     }
 }
