@@ -37,6 +37,10 @@ public class Giocatore {
         return punteggio;
     }
 
+    public DynamicStack getManoGiocatore() {
+        return manoGiocatore;
+    }
+
     public void addManoGiocatore(NodoCarta nodo) {
         manoGiocatore.push(nodo);
     }

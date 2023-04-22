@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class turniGioco {
     public static void turnoPinella(gameStart partita){
         int ix=0;
-        while(ix<partita.getPlayers().size()){
+        boolean vittoria = false;
+        while(vittoria){
             System.out.println("Pesca carta:\n[0]Dal mazzo\n[1]Dalle carte scartate");
             Scanner playerInput = new Scanner(System.in);
             int sceltaPesca=playerInput.nextInt();
@@ -21,7 +22,10 @@ public class turniGioco {
                 NodoCarta scartoMano=partita.getCarteScartate().pescaCarta(cartaScarto);
                 prendiCarteScartateMano(partita,scartoMano,ix);
             }
+            vittoria=NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
             ix++;
+            if (ix>=partita.getPlayers().size())
+                ix=0;
         }
     }
     private static void prendiCarteScartateMano(gameStart partita, NodoCarta primaCarta, int index){
