@@ -1,10 +1,8 @@
 package Codice;
 
-import Codice.Objects.DynamicStack;
-import Codice.Objects.Giocatore;
-import Codice.Objects.NodoCarta;
+import Codice.Objects.*;
+import Codice.Comportamenti.*;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -104,6 +102,7 @@ public class gameStart {
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             spostaMazzoCarteScartate(partita, getNumeroCartaCasuale(partita));
             System.out.println("Pinella");
+            turniGioco.turnoPinella(partita);
         }
         else if (booleanControlloGioco(partita, "machiavelli")){ //machiavelli
             quanteCarteInMano=13;
@@ -141,23 +140,24 @@ public class gameStart {
             int nManoRandom=1;
             while (nManoRandom<=carteInMano){
                 int posizCartaCasuale=getNumeroCartaCasuale(partita);
-                aggiungiCartaPescataMano(partita, index, posizCartaCasuale);
-                partita.getMazzoGioco().remove(posizCartaCasuale);
+                aggiungiCartaMazzoMano(partita, index, posizCartaCasuale);
                 nManoRandom++;
             }
         }
     }
 
-    private static int getNumeroCartaCasuale(gameStart partita) {
+    public static int getNumeroCartaCasuale(gameStart partita) {
         return (int)((Math.random() * partita.getMazzoGioco().size()));
     }
 
-    private static void aggiungiCartaPescataMano(gameStart partita, int index, int numeroCartaCasuale) {
+    public static void aggiungiCartaMazzoMano(gameStart partita, int index, int numeroCartaCasuale) {
         partita.getPlayers().get(index).addManoGiocatore(pescaCartaMazzo(partita, numeroCartaCasuale));
     }
 
     private static NodoCarta pescaCartaMazzo(gameStart partita, int numeroCarta) {
-        return partita.getMazzoGioco().get(numeroCarta);
+        NodoCarta res= partita.getMazzoGioco().get(numeroCarta);
+        partita.getMazzoGioco().remove(numeroCarta);
+        return res;
     }
 
     private static void spostaMazzoCarteScartate(gameStart partita, int numeroCarta){
