@@ -101,6 +101,7 @@ public class gameStart {
             quanteCarteInMano=13;
             creaManoTuttiGiocatori(partita,quanteCarteInMano);
             spostaMazzoCarteScartate(partita, getNumeroCartaCasuale(partita));
+            spostaMazzoCarteScartate(partita, getNumeroCartaCasuale(partita));//Test
             System.out.println("Pinella");
             turniGioco.turnoPinella(partita);
         }

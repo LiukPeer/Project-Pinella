@@ -8,25 +8,29 @@ import java.util.Scanner;
 public class turniGioco {
     public static void turnoPinella(gameStart partita){
         int ix=0;
-        boolean vittoria = false;
-        while(vittoria){
+        boolean vittoria = vittoria=NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
+        while(!vittoria){
             System.out.println("Pesca carta:\n[0]Dal mazzo\n[1]Dalle carte scartate");
             Scanner playerInput = new Scanner(System.in);
             int sceltaPesca=playerInput.nextInt();
+            NodoCarta cartaScartataDaUsare=null;
             if (sceltaPesca==0){
                 gameStart.aggiungiCartaMazzoMano(partita,ix,gameStart.getNumeroCartaCasuale(partita));
             }
             else if (sceltaPesca==1) {
                 System.out.println("Inserire in numero della carta da cui prendere (1..n):");
                 int cartaScarto=playerInput.nextInt();
-                NodoCarta scartoMano=partita.getCarteScartate().pescaCarta(cartaScarto);
-                prendiCarteScartateMano(partita,scartoMano,ix);
+                cartaScartataDaUsare=partita.getCarteScartate().pescaCarta(cartaScarto);
+                prendiCarteScartateMano(partita,cartaScartataDaUsare,ix);
             }
+            //METODO PER COSTRINGERE A USARE LA PRIMA CARTA SCARTATA PRESA CON  getManoGiocator.get(cartaScartataDaUsare)
             System.out.println("Giocare delle carte?:\n[0]Si\n[1]No");
             int sceltaGioco=playerInput.nextInt();
             if (sceltaGioco==0){
                 System.out.println("Gioco carta");
             }
+            System.out.println("Inserire il numero di una carta da scartare ():");
+            //SCARTARE CARTA DA MANO IN CARTESCARTATE
             vittoria=NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
             ix++;
             if (ix>=partita.getPlayers().size())
