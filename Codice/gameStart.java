@@ -195,15 +195,19 @@ public class gameStart {
             }
         }
 
-        int numeroJolly=(nCarte*nMazzi)- Mazzo.size();
+        creazioneJollyCarte(partita, nCarte, nMazzi, Mazzo);
+        return Mazzo;
+    }
+
+    private static void creazioneJollyCarte(gameStart partita, int nCarte, int nMazzi, LinkedList<NodoCarta> mazzo) {
+        int numeroJolly=(nCarte * nMazzi)- mazzo.size();
         if (booleanControlloGioco(partita,"pinella")){
-            numeroJolly=numeroJolly-2*nMazzi;  //compenso la rimozione dei due rossi per pinella
+            numeroJolly=numeroJolly-2* nMazzi;  //compenso la rimozione dei due rossi per pinella
         }
         while (numeroJolly>0){
-            Mazzo.add(new NodoCarta(0,"Jolly",null));
+            mazzo.add(new NodoCarta(0,"Jolly",null));
             numeroJolly--;
         }
-        return Mazzo;
     }
 
 }

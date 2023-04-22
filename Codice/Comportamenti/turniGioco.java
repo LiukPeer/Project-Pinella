@@ -22,6 +22,11 @@ public class turniGioco {
                 NodoCarta scartoMano=partita.getCarteScartate().pescaCarta(cartaScarto);
                 prendiCarteScartateMano(partita,scartoMano,ix);
             }
+            System.out.println("Giocare delle carte?:\n[0]Si\n[1]No");
+            int sceltaGioco=playerInput.nextInt();
+            if (sceltaGioco==0){
+                System.out.println("Gioco carta");
+            }
             vittoria=NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
             ix++;
             if (ix>=partita.getPlayers().size())

@@ -96,7 +96,7 @@ public class NodoCarta{
         if(val!=0)
             output+=" di ";
         if (!(val==7)||!nodoCarta.getSeme().equalsIgnoreCase("denari")){
-            output+=nodoCarta.getSeme();
+            output+=nodoCarta.getSeme().toLowerCase();
         }
         return output;
     }
