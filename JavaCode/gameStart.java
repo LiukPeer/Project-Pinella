@@ -1,7 +1,7 @@
-package Codice;
+package JavaCode;
 
-import Codice.Objects.*;
-import Codice.Comportamenti.*;
+import JavaCode.Objects.*;
+import JavaCode.Comportamenti.*;
 
 import java.util.LinkedList;
 import java.util.Scanner;

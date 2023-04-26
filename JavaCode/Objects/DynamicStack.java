@@ -1,4 +1,4 @@
-package Codice.Objects;
+package JavaCode.Objects;
 
 //DynamickStack.java
 public class DynamicStack {

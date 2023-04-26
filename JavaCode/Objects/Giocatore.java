@@ -1,4 +1,4 @@
-package Codice.Objects;
+package JavaCode.Objects;
 
 import java.util.LinkedList;
 
@@ -39,6 +39,10 @@ public class Giocatore {
 
     public DynamicStack getManoGiocatore() {
         return manoGiocatore;
+    }
+
+    public String getNomeGiocatore() {
+        return nomeGiocatore;
     }
 
     public void addManoGiocatore(NodoCarta nodo) {

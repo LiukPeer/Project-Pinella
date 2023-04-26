@@ -1,15 +1,16 @@
-package Codice.Comportamenti;
+package JavaCode.Comportamenti;
 
-import Codice.gameStart;
-import Codice.Objects.*;
+import JavaCode.gameStart;
+import JavaCode.Objects.*;
 
 import java.util.Scanner;
 
 public class turniGioco {
     public static void turnoPinella(gameStart partita){
         int ix=0;
-        boolean vittoria = vittoria=NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
+        boolean vittoria = NodoCarta.length(partita.getPlayers().get(ix).getManoGiocatore().getTop())==0;
         while(!vittoria){
+            System.out.print(partita.getPlayers().get(ix).getNomeGiocatore()+". ");
             System.out.println("Pesca carta:\n[0]Dal mazzo\n[1]Dalle carte scartate");
             Scanner playerInput = new Scanner(System.in);
             int sceltaPesca=playerInput.nextInt();
@@ -18,6 +19,7 @@ public class turniGioco {
                 gameStart.aggiungiCartaMazzoMano(partita,ix,gameStart.getNumeroCartaCasuale(partita));
             }
             else if (sceltaPesca==1) {
+                System.out.print(partita.getPlayers().get(ix).getNomeGiocatore()+". ");
                 System.out.println("Inserire in numero della carta da cui prendere (1..n):");
                 int cartaScarto=playerInput.nextInt();
                 cartaScartataDaUsare=partita.getCarteScartate().pescaCarta(cartaScarto);

@@ -1,4 +1,4 @@
-package Codice.Objects;
+package JavaCode.Objects;
 
 public class NodoCarta{
     private int valore;
