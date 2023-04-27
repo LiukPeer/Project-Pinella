@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
 }
 .tavolo{
 background: #2b4d2b;
