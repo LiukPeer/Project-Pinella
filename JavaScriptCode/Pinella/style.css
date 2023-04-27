@@ -7,16 +7,16 @@
 .container{
     width: 100%;
     height: 100vh;
-   /* background: rgb(30,70,50);*/
-    background-image: url("Images/tavolo.jpg");
+    /*background: rgb(34, 121, 77);*/
+  background-image: url("Images/sfondo-legno.jpg");
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .tavolo{
-    background-image: url("Images/piano2.jpg");
-    height: 700px;
-    width: 100%;
-    margin: 2%;
-    border:solid 12px #50211d;
+background: #2b4d2b;
+height: 540px;
+width: 100%;
+margin: 2%;
+border:solid 15px #181818;
 }
