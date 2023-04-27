@@ -4,28 +4,40 @@
 
 ### Numero di giocatori: 
 Da 2 a 4 giocatori
+- Si chiede a inizio partita quanti giocatori sono. Se sono 2 o 3 si gioca individualmente, se 4 invece si creano 2 squadre da 2 giocatori
 ### Mazzo di gioco:
 Abbiamo 4 semi diversi (Cuori, fiori, picche, quadri), ogni seme ha 12 carte diverse (A,3,4,5,6,7,8,9,10,J,Q,K), in più abbiamo due jolly e due 2 neri (ci sono solo i due di fiori e di picche). Si gioca con due mazzetti (`numeroMazzi`=2). Ci sono quindi in tutto 52*2= 104 carte.
+- E' stato creato un generatore imlicito `DynamiStack(String gioco)` per fare dei mazzi generici che poi possiamo usare per altri giochi oltre a pinella. Se il gioco selezionato è `'pinella'` non vengono creati i 2 di cuori e picche.
 ### Distribuzione carte a inizio partita (turno 1): 
 1. Ad ogni giocatore si danno 13 carte casuali prese dal mazzo;
-2. Si mette una carta nello spazio carte scartate;
+   - Si usa il metodo Math.random per prendere le carte dal mazzo. Quando una carta viene scelta la si rimuove con DynamicStack.pop(int n) per ottenere la carta in posizione n ed eliminarla dal mazzo.
+2. Si mette una carta nello spazio delle carte scartate;
+   - `CarteScartate` sarà un DynamicStack da cui si portanno aggiungere e prendere un range di elementi.
 ### Regole:
 * Ad ogni inizio turno ogni G deve pescare una carta o dal mazzo o dalle carte scartate 
-* Se si pesca da `CarteScartate` si possono prendere un numero  di carte appartenente al range[1:CarteScartate.length-1], si è obbligati a mettere nel proprio campo a terra(“campoGn°”) la prima carta pescata da questo mazzo,le altre carte posizionate dopo questa possono essere tenute in mano (l’ordine delle carte in CarteScartatePescare parte dalla prima carta scartata all’ultima carta scartata );
+* Se si pesca da `CarteScartate` si possono prendere un numero  di carte appartenente al range[1:CarteScartate.length-1], si è obbligati a mettere nel proprio campo a terra la carta pescata più in basso, le altre carte vanno tenute in mano o giocate (essendo DynamicStack l’ordine delle carte in `CarteScartate` parte dalla prima carta scartata all’ultima carta scartata (top);
 
-* Ad ogni fine turno ogni G deve scartare una carta (andrà inserita a CarteScartate).Lo scarto della carta deve avvenire con un senso logico scelto dal determinato giocatore,si consiglia di non scartare carte che servono agli avversari,quindi che non  attacchino alle scale presenti in campo  degli avversari oppure bisogna evitare di scartare carte che potrebbero aiutare il giocatore stesso a fare una lunga o comunque più scale(più punti), bisogna cercare di sabotare gli avversari il più possibile con le carte che si hanno a disposizione.
-
-ogni volta che viene presa una carta dal mazzo, questa carta scompare dal mazzo e va in mano ad un giocatore oppure a “CarteScartatePescare”.
+* Ad ogni fine turno ogni G deve scartare una carta (andrà inserita a `CarteScartate`). Si consiglia di non scartare carte che servono agli avversari, quindi che non  attacchino alle scale presenti in campo degli avversari. 
+Oppure bisogna evitare di scartare carte che potrebbero aiutare il giocatore stesso a fare una lunga o comunque più scale(più punti), bisogna cercare di sabotare gli avversari il più possibile con le carte che si hanno a disposizione.
 
 ### Possibili combinazioni delle scale:
-+ Devono avere minimo 3 carte ciascuna;
-+ Ogni scala ha un proprio seme, semi di diverso tipo non si possono combinare;
-+ le scale si fanno nel seguente ordine : A->3->4->5->6->7->8->9->10->J->Q->K->A (tra A e il 3 non c’è il 2);
-+ I 2 di Picche e Fiori si chiamano pinelle e hanno lo stesso ruolo dei jolly, l’unica differenza è che le pinelle non possono essere prese dagli avversari mentre i jolly si.
++ Devono essere di minimo 3 carte;
+  - `if (lunghezza<3)
+        return false`
++ Ogni scala ha un proprio seme, non si possono combinare semi diversi;
+  - `if (!Carta.getSeme().equals(AltraCarta.getSeme())
+        return false`
++ l'ordine da seguire nelle scale è : A->3->4->5->6->7->8->9->10->J->Q->K->A (tra A e il 3 non c’è il 2);
 + Le pinelle e i jolly vengono usati per formare le scale come sostituti di una carta mancate;
-* Ogni giocatore può prendere il jolly di chiunque altro, solo se ha la carte reale che lo sostituirebbe;
-* in ogni scala si possono aggiungere solo nuove carte(oltre ai jolly eventualmente spostati);
+  - `if (NodeC.getNext().getCard().getValore()==(NodeC.getCard().getValore()+1||2||0))
+        return true`
 + le pinelle possono essere sostituite con la reale carta, ma a differenza dei jolly possono essere poi spostate solo lungo la scala in cui erano state inserite inizialmente;
+* Ogni giocatore può prendere il jolly di chiunque altro, solo se ha la carte che lo sostituirebbe;
+  - `if (NodeC.getNext().getCard().getValore()-1==(Carta.getValore()))
+     ...
+        return true`
+
+* in ogni scala si possono solo aggiungere carte (oltre ai jolly eventualmente spostati);
 ### Condizioni di vittoria
 * fare una scala di minimo 6 carte di fila(“lunga”) senza jolly e pinelle in mezzo;
 * Terminare le carte in mano
