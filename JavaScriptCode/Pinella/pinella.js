@@ -1,0 +1,4 @@
+var mazzoOrdinato = []
+function carte(){
+    
+}
