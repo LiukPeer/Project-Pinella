@@ -4,7 +4,7 @@ class carte{
     #seme
     #contenitore
 
-    static #nomi = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
+    nomi = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
 
     src
 
@@ -12,7 +12,7 @@ class carte{
         this.numero = numero
         this.seme = seme
         this.contenitore = contenitore
-        this.src = nomi[numero -1] + "_of_" + seme
+        this.src = this.nomi[numero -1] + "_of_" + seme
     }
 
 
@@ -31,7 +31,4 @@ class carte{
     sposta(contenitore){
         this.contenitore = contenitore
     }
-    
-
-    ffgdhdh(){}
 }
