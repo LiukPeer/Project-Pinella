@@ -32,4 +32,6 @@ class carte{
         this.contenitore = contenitore
     }
     
+
+    ffgdhdh(){}
 }
