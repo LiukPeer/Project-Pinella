@@ -9,11 +9,9 @@ var cardnames = [
 
 
 function pesca(){
-    var carta = new carte(1,"clubs",5)
-    console.log(carta.src)
-    const myImage = new Image(100, 200);
+    var carta = new carte(1,"clubs",5);
+    const myImage = new Image(60, 45);
     myImage.src = "../immagini/playingCards/PNG-cards-1.3/"+carta.src+".png";
-    var newcard = '<img src="../immagini/playingCards/PNG-cards-1.3/'+carta.src+'.png">';
     const grid = document.querySelector(".griglia");
-   grid.appendChild(myImage);
+    grid .appendChild(myImage);
 }
