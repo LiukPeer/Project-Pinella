@@ -2,33 +2,29 @@ class carte{
 
     #numero 
     #seme
-    #contenitore
 
     nomi = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
 
     src
 
-    constructor(numero , seme , contenitore){
+    /**
+     * Crea una nuova carta avente valore e seme indicati
+     * @param {*} numero 
+     * @param {*} seme 
+     */
+    constructor(numero , seme){
         this.numero = numero
         this.seme = seme
-        this.contenitore = contenitore
         this.src = this.nomi[numero -1] + "_of_" + seme
     }
 
 
     getSeme(){
-        return seme
+        return this.seme
     }
 
     getNumero(){
-        return numero
+        return this.numero
     }
 
-    getContenitore(){
-        return contenitore
-    }
-
-    sposta(contenitore){
-        this.contenitore = contenitore
-    }
 }
