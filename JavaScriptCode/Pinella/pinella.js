@@ -1,4 +1,4 @@
-function pesca(){
+function draw(){
     var carta = new carte(randomNumber(),randomElement(),5);
     const myImage = new Image(50, 75);
     myImage.src = "../immagini/playingCards/PNG-cards-1.3/"+carta.src+".png";
