@@ -12,7 +12,7 @@ function randomElement(){
     return index
 }
 function randomNumber(){
-    var rNumber = Math.floor(Math.random() * 10) + 1;
+    var rNumber = Math.floor(Math.random() * 13) + 1;
     return rNumber
 }
 
