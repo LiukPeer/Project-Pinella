@@ -4,10 +4,12 @@ const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
 
 var mazzo = []
 
-function setupMazzo(){
-    for(j = 0 ; j < semi.length ; j++){
-        for(i = 1 ; i <= 13 ; i++){
-            mazzo.push(new carte(i , semi[j]))
+function setupMazzo(numeroMazzi){
+    for (let nDeck=0; nDeck<numeroMazzi;nDeck++){
+        for(j = 0 ; j < semi.length ; j++){
+            for(i = 1 ; i <= 13 ; i++){
+                mazzo.push(new carte(i , semi[j]))
+            }
         }
     }
     shuffleMazzo()
