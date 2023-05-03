@@ -14,4 +14,7 @@ class giocatore{
     getNome(){
         return this.nome
     }
+    getMano() {
+        return this.mano
+    }
 }
