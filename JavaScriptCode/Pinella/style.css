@@ -14,12 +14,16 @@
     justify-content: center;
     background-size: cover;
 }
-.tavolo{
-background: #2b4d2b;
-height: 90%;
-width: 100%;
-margin: 2%;
-border:solid 15px #090402;
+.tavolo {
+  background: #2b4d2b;
+  height: 90%;
+  width: 100%;
+  margin: 2%;
+  border: solid 15px #090402;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
 }
 .img-retro{
   height: 75px;
@@ -27,10 +31,22 @@ border:solid 15px #090402;
   display: flex;
 }
 .mazzoPinella{
-  display: inline;
+  display: flex;
+  
 }
 .giocatore{
-  display: inline;
-  background-color:white;
-  height: 40px;
+  display: flex;
+  background:white;
+  position: relative;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.scarto{
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 50%;
+  left: 0;
 }

@@ -1,6 +1,8 @@
 class giocatore{
     #id
     #nome
+
+    mano = [] 
     constructor(id,nome){
         this.id = id;
         this.nome = nome;

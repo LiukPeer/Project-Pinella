@@ -1,23 +1,35 @@
-<<<<<<< Updated upstream
-=======
-//questo file è il main del gioco
-const valoreMax = 13
-const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
-//const valori = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
->>>>>>> Stashed changes
 
 let mazzoPinella = [];
+let giocatori =[]
+
+const nCarte = 13
+
+function distribuisci(){
+    let i = 0
+    for(let i = 0; i < nCarte * giocatori.length; i++){
+        giocatori[i].mano.push(mazzoPinella.pop())
+        i = ++i % giocatori.length
+    }
+
+}
 
 function setupMazzo(){
     mazzoPinella = new deck().getMazzo()
 }
 
 function pesca(){
-    if(mazzoPinella.length > 0){
-        let carta = mazzoPinella.pop();
-        const myImage = new Image(50, 75);
-        myImage.src = "../immagini/PNG-cards-1.3/"+carta.src+".png";
-        const grid = document.querySelector(".mazzoPinella");
+    
+    let carta = mazzoPinella.pop();
+   
+    const myImage = new Image(50, 75);
+    myImage.src = "../immagini/PNG-cards-1.3/"+carta.src+".png";
+    if(mazzoPinella.length < 13){
+        const grid = document.querySelector(".scarto");
         grid.appendChild(myImage);
+        
+    }else{
+        const scarto = document.querySelector(".mazzoPinella");
+        scarto.appendChild(myImage);
     }
+    console.log(mazzoPinella.length)
 }
