@@ -1,11 +1,8 @@
-const valoreMax = 13
-const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
-//const valori = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
 
 let mazzoPinella = [];
 
 function setupMazzo(){
-    mazzoPinella= new deck(valoreMax,semi,true,2).getMazzo()
+    mazzoPinella = new deck().getMazzo()
 }
 
 function pesca(){

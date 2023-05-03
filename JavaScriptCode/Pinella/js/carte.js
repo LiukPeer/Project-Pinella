@@ -28,16 +28,13 @@ class carte{
     }
 }
 
-class joker extends carte{
-    constructor(num, sign, coloreJolly) {
-        super(num, sign);
-        this.src= coloreJolly+'_joker'
-    }
+class joker{
 
-    setSeme (nuovoSeme){
-        this.seme=nuovoSeme
-    }
-    setNumero (nuovoNumero){
-        this.numero=nuovoNumero
+    src
+    isJoker
+
+    constructor(jollyName , isJoker) {
+        this.src = jollyName
+        this.isJoker = isJoker
     }
 }
