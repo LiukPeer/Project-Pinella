@@ -28,5 +28,9 @@ border:solid 15px #090402;
 }
 .mazzoPinella{
   display: inline;
-  
+}
+.giocatore{
+  display: inline;
+  background-color:white;
+  height: 40px;
 }

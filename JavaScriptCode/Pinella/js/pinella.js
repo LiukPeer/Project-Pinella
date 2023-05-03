@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream
+=======
+//questo file è il main del gioco
+const valoreMax = 13
+const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
+//const valori = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
+>>>>>>> Stashed changes
 
 let mazzoPinella = [];
 
