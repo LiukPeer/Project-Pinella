@@ -1,16 +1,18 @@
 class deck{
     mazzo = []
 
-    constructor(maxValore, arraySemi, numeroJoker) {
-        for(let nSeme = 0 ; nSeme < arraySemi.length ; nSeme++){
-            for(let nValore = 1 ; nValore <= 13 ; nValore++){
-                this.mazzo.push(new carte(nValore , arraySemi[nSeme]))
+    constructor(maxValore, arraySemi, numeroJoker, numeroMazzi) {
+        for (let nDeck=0; nDeck<numeroMazzi;nDeck++) {
+            for (let nSeme = 0; nSeme < arraySemi.length; nSeme++) {
+                for (let nValore = 1; nValore <= 13; nValore++) {
+                    this.mazzo.push(new carte(nValore, arraySemi[nSeme]))
+                }
+            }
+            for (let nJolly = 0; nJolly < numeroJoker; nJolly++) {
+                this.mazzo.push(new joker(0, null, 'red'))
             }
         }
-        for(let nJolly=0; nJolly<numeroJoker; nJolly++){
-            this.mazzo.push()
-        }
-        shuffleMazzo()
+        this.shuffleMazzo()
     }
 
     shuffleMazzo() {

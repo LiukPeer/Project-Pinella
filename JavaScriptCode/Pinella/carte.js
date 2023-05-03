@@ -32,6 +32,13 @@ class joker extends carte{
     colori = ['red','black']
     constructor(num, sign, coloreJolly) {
         super(0, sign);
-        this.src= colori[coloreJolly]
+        this.src= this.colori[coloreJolly]+'_joker'
+    }
+
+    setSeme (nuovoSeme){
+        this.seme=nuovoSeme
+    }
+    setNumero (nuovoNumero){
+        this.numero=nuovoNumero
     }
 }
