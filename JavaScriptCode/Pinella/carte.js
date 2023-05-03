@@ -26,5 +26,12 @@ class carte{
     getNumero(){
         return this.numero
     }
+}
 
+class joker extends carte{
+    colori = ['red','black']
+    constructor(num, sign, coloreJolly) {
+        super(0, sign);
+        this.src= colori[coloreJolly]
+    }
 }
