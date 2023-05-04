@@ -6,18 +6,15 @@ class deck{
 
     mazzo = []
     constructor(maxValore, arraySemi, booleanJoker, numeroMazzi, booleanPinella) {
-        for (let nDeck=0; nDeck<numeroMazzi;nDeck++) {
+        for (let nDeck=0; nDeck < numeroMazzi; nDeck++) {
             for (let nSeme = 0; nSeme < arraySemi.length; nSeme++) {
-                for (let nValore = 1; nValore <= 13; nValore++) {
-                    if(nValore === 2){
-                        if (arraySemi[nSeme]==='clubs'&& booleanPinella){
+                for (let nValore = 1; nValore <= maxValore; nValore++) {
+                    if(nValore === 2 && booleanPinella){
+                        if (arraySemi[nSeme]==='clubs'){
                             this.mazzo.push(new joker("2_of_clubs" , false))
                         }
-                        else if (arraySemi[nSeme]==='spades' && booleanPinella){
+                        else if (arraySemi[nSeme]==='spades'){
                             this.mazzo.push(new joker("2_of_spades" , false))
-                        }
-                        else if (arraySemi[nSeme]==='hearts' || arraySemi[nSeme]==='diamonds'&&!booleanPinella){
-                            this.mazzo.push(new carte(nValore, arraySemi[nSeme]))
                         }
                     }
                     else{

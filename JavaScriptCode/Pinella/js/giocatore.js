@@ -8,11 +8,11 @@ class giocatore{
         this.nome = nome;
     }
     getId(){
-        return this.id
+        return this.#id
     }
 
     getNome(){
-        return this.nome
+        return this.#nome
     }
     getMano() {
         return this.mano

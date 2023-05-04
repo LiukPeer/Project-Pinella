@@ -1,35 +1,30 @@
 
-let mazzoPinella = [];
+let mazzo = [];
 let giocatori =[]
 
 const nCarte = 13
+const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
 
 function distribuisci(){
-    for(let i = 0; i < nCarte * giocatori.length; i++){
-        giocatori[i].mano.push(mazzoPinella.pop())
-        i = ++i % giocatori.length
+    for(let i = 0; i < nCarte; i++){
+        for(let j = 0 ; j < giocatori.length ; j++){
+            giocatori[j].mano.push(mazzo.pop())
+        }
     }
-
 }
 
 function setupMazzo(){
-    mazzoPinella = new deck(13,["clubs" , "diamonds" , "hearts" , "spades"],true, 2, true).getMazzo()
+    mazzo = new deck(13 , semi ,true, 2, true).getMazzo()
 }
 
 function pescaMazzo(){
-    
-    let carta = mazzoPinella.pop();
-   
-    const myImage = new Image(50, 75);
+    let carta = mazzo.pop();
+    let myImage = new Image(50, 75);
     myImage.src = "../immagini/PNG-cards-1.3/"+carta.src+".png";
-    const grid = document.querySelector(".scarto");
-    grid.appendChild(myImage);
+    let mano = document.querySelector(".giocatore");
+    mano.appendChild(myImage);
 
-
-    const scarto = document.querySelector(".mazzoPinella");
-    scarto.appendChild(myImage);
-
-    console.log(mazzoPinella.length)
+    //console.log(mazzo.length)
 }
 
 function pescaScarto() {
