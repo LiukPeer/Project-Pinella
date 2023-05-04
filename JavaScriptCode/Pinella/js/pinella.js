@@ -19,12 +19,17 @@ function setupMazzo(){
 
 function pescaMazzo(){
     let carta = mazzo.pop();
+    
     let myImage = new Image(50, 75);
     myImage.src = "../immagini/PNG-cards-1.3/"+carta.src+".png";
     let mano = document.querySelector(".giocatore");
     mano.appendChild(myImage);
 
     //console.log(mazzo.length)
+}
+
+function scarto(){
+
 }
 
 function pescaScarto() {
