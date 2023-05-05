@@ -43,21 +43,20 @@
 }
 
 .mazzo{
-  background-color: rgba(116, 255, 44, 0.47);
+  left: 0;
+}
+.scarto{
+  width: fit-content;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.util1{
   display: flex;
   flex-direction: row;
   position: absolute;
-  transform: translate(-50%, 0);
   top: 0;
-  left: 50%;
-}
-.scarto{
-  display:flex;
-  position: absolute;
-  transform: translate(0, -50%);
-  top: 50%;
+  left: 0;
   width: 100%;
-  height: 75px;
-  flex-wrap: wrap;
-  gap: 8px;
+  height : fit-content;
 }

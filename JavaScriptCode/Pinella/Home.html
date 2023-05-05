@@ -7,14 +7,19 @@
     <title>Gioco</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="setupMazzo() ; distribuisci()">
+<body onload="setupMazzo() ; caricaGiocatori() ; distribuisci()">
     <div class="container">
         <div class="tavolo">
-            <div class="mazzo">
-                <img src="../immagini/PNG-cards-1.3/retro.png" class="img-retro" onclick="pescaMazzo()"/>
+            <div class="util1"ondrop="scarto(event)" ondragover="allowDrop(event)">
+                <div class="mazzo">
+                    <!--in pescaMazzo al posto di giocatore[0] bisognerà scegliere dinamicamente il giocatore che deve pescare-->
+                    <img src="../immagini/PNG-cards-1.3/retro.png" class="img-retro" onclick="pescaMazzo(giocatori[0])"/>
+                </div>
+                <div class="scarto"></div>
             </div>
+            
             <div class="giocatore"></div>
-            <div class="scarto"></div>
+
         </div>
     </div>
     <script src="js/pinella.js"></script>
