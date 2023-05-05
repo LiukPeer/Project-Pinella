@@ -25,7 +25,7 @@ function pescaMazzo(){
     let mano = document.querySelector(".giocatore");
     mano.appendChild(myImage);
 
-    //console.log(mazzo.length)
+    console.log(mazzo.length)
 }
 
 function scarto(){
