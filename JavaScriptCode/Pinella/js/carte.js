@@ -5,6 +5,7 @@ class carte{
 
     nomi = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
 
+    id
     src
 
     /**
@@ -12,9 +13,10 @@ class carte{
      * @param {*} numero 
      * @param {*} seme 
      */
-    constructor(numero , seme){
+    constructor(numero , seme , cardId){
         this.numero = numero
         this.seme = seme
+        this.id = cardId
         this.src = this.nomi[numero -1] + "_of_" + seme
     }
 
@@ -30,11 +32,13 @@ class carte{
 
 class joker{
 
+    id
     src
     isJoker
 
-    constructor(jollyName , isJoker) {
+    constructor(jollyName , isJoker , cardID) {
         this.src = jollyName
         this.isJoker = isJoker
+        this.id = cardID
     }
 }

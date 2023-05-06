@@ -2,6 +2,9 @@
 let mazzo = [];
 let giocatori =[]
 
+//turno andrà modificato dinamicamente
+let turno = 0
+
 const nCarte = 13
 const semi = ["clubs" , "diamonds" , "hearts" , "spades"]
 
@@ -22,18 +25,18 @@ function setupMazzo(){
     mazzo = new deck(13 , semi ,true, 2, true).getMazzo()
 }
 
-function pescaMazzo(giocatore){
+function pescaMazzo(){
     let carta = mazzo.pop();
-    giocatore.mano.push(carta);
+    giocatori[turno].mano.push(carta);
 
     let myImage = new Image(50, 75);
     myImage.src = "../immagini/PNG-cards-1.3/"+carta.src+".png";
-    myImage.id = "image" + giocatore.mano.length; 
+    myImage.id = carta.id; 
 
     document.querySelector(".giocatore").appendChild(myImage);
     
     myImage.addEventListener("dragstart" ,   function drag(ev) {
-        ev.dataTransfer.setData("image", ev.target.id);
+        ev.dataTransfer.setData("carta", ev.target.id);
       });
 }
 // Questa parte gestisce lo carto
@@ -43,8 +46,9 @@ function allowDrop(ev) {
   
   function scarto(ev) {
     ev.preventDefault();
-    let data = ev.dataTransfer.getData("image");
+    let data = ev.dataTransfer.getData("carta");
     document.querySelector(".scarto").appendChild(document.getElementById(data));
+    giocatori[turno].rimuoviCarta(data)
   }
 
 function pescaScarto() {
