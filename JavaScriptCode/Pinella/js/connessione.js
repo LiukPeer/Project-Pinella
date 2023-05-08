@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-// https://firebase.google.com/docs/web/setup#available-libraries
 
+//per qualche motivo questo imprt da dei problemi
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+
+// https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD0yydIbrnNTnnmGiyszOf6Ti5twzIlCn8",
@@ -11,39 +13,43 @@ const firebaseConfig = {
   storageBucket: "multigiocatore-3048c.appspot.com",
   messagingSenderId: "619188906345",
   appId: "1:619188906345:web:24efda487a29aa799375f8",
-};
+  };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig)
-const gamesRef = firebase.database().ref("games")
+const allGamesRef = firebase.database().ref("games")
+var gameId
+var gameRef
 
-
-//var gameId = createGame("prova")
-//var currentGame = gamesRef.child(gameId)
-//games sarà il nodo presente nel database
-
-//
-//currentGame.onDisconnect().remove();
 
 
 
 function createGame(){
-  let player1 = document.getElementById("nome").value;
-  let newGameRef = gamesRef.push();
-  newGameRef.set({
-    nome: player1
-    //bisognerà inserire tutte le informmazioni dei mazzi
-  });
-  document.getElementById("idStanza").value = newGameRef.key;
-  return newGameRef.key;
+  if(gameRef == undefined){
+    let player1 = document.getElementById("nome").value;
+    let newGameRef = allGamesRef.push();
+    newGameRef.set({
+      nome: player1
+      //bisognerà inserire tutte le informmazioni dei mazzi
+    });
+    gameId = newGameRef.key;
+    gameRef = newGameRef;
+    document.getElementById("idStanza").value = gameId;
+    allowDisconnection();
+  }
 }
 
 function joinGame(gameId, player2) {
-  let newGameRef = gamesRef.child(gameId);
-  newGameRef.update({
+  gameRef = allGamesRef.child(gameId)
+  gameRef.update({
     player2: player2
   });
 }
+
+function allowDisconnection(){
+  gameRef.onDisconnect().remove();
+}
+
 
 
 /*
