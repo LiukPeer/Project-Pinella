@@ -84,11 +84,11 @@ label:last-child span {
   border-radius: 0 0.375em 0.375em 0;
 }
 .box{
-    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap:8px;
     font-size: 20px; 
+    position: relative;
 }
 .label-host{
     display: flex;
@@ -99,6 +99,17 @@ input[type="text"]{
     text-align: center;
     border-radius: 5px;
 }
-.btn-crea{
+.btnInvia{
     display: flex;
+    position:relative;
+    justify-content: space-evenly;
+    align-content: stretch;
+    flex-direction: column;
+}
+.idStanza{
+    width: 30px;
+}
+.label-connect{
+    display: flex;
+    justify-content: space-around;
 }

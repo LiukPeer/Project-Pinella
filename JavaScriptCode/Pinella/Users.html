@@ -32,13 +32,15 @@
                 <input type="text" id="idStanza" readonly/>
             </div>
             <div class="connection box">
-                <label>Inserisci il nome :</label>
+                <label class="label-connect">Inserisci il nome :</label>
                 <input type="text" placeholder="Inserisci il tuo nome" id="nomeConn"/>
                 <label>Inserisci il codice della stanza:</label>
                 <input type="text" placeholder="Inserisci il codice della stanza" id="gameId"/>
                 <button onclick="joinGame()">Collegati a una stanza</button>
             </div>
-            <button class="btn-crea"><a href="Home.html">Crea stanza</a></button>
+            <div class="btnInvia">
+                <button><a href="Home.html">Inizia</a></button>
+            </div>
         </div>    
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
