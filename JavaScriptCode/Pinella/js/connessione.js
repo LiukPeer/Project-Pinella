@@ -21,6 +21,12 @@ const allGamesRef = firebase.database().ref("games")
 var gameId
 var gameRef
 
+//questa parte dovrà essere distribuita tra le varie classi
+var playerId
+var playerRef
+
+var turno
+
 
 function createGame(){
   if(gameRef == undefined){
@@ -29,7 +35,11 @@ function createGame(){
     if(name == ""){
       return
     }
-    gameRef =  allGamesRef.push();
+    gameRef = allGamesRef.push();
+    // genera il campo turno
+    gameRef.update({
+      turno : 0
+    })
     gameId = gameRef.key;
     document.getElementById("idStanza").value = gameId;
     allowDisconnection();
@@ -53,20 +63,38 @@ function joinGame() {
   }
 }
 
+//crea un nuovo nodo giocatore nel db
 function newPlayer(name){
-  let newPlayer = firebase.database().ref('players/' + gameId).push();
-  newPlayer.set({
+  playerRef = firebase.database().ref('games/' + gameId + "/players").push();
+  playerRef.set({
     name: name
       //bisognerà inserire tutte le informmazioni del caso
   });
+  playerId = playerRef.key;
 }
 
 //questa funzione serve per garantire la disconnessione dal database
 // una volta che il giocatocatore si diconnette
 function allowDisconnection(){
-  gameRef.onDisconnect().remove();
+  if(gameRef != undefined){
+    gameRef.onDisconnect().remove();
+  }
 }
 
+// disconnette direttamente
+function disconnect(){
+  if(playerRef != undefined){
+    playerRef.remove();
+    resetId();
+  }
+}
+
+function resetId(){
+  document.getElementById("gameId").value = "";
+  document.getElementById("idStanza").value = "";
+  gameId = undefined;
+  gameRef = undefined;
+}
 
 
 /*

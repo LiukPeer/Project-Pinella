@@ -55,6 +55,7 @@
             var targetBox = $("." + inputValue);
             $(".box").not(targetBox).hide();
             $(targetBox).show();
+            disconnect();
         });
     });
     </script>
