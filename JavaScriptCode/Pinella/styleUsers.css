@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins',sans-serif;
+    box-sizing: border-box;
+}
+.container{
+    max-width: 100%;
+    height: 100vh;
+    background-image: url("../immagini/sfondo-legno.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+.form{
+    width: 500px;
+    height: 500px;
+    background: #2b4d2b;
+    margin: 0 auto;
+    border-radius: 12px;
+    padding: 15px;
+    color :white;
+    border: 3px solid black;
+}
+.button{
+    background: black;
+    color: white;
+}

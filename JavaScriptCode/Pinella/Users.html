@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styleUsers.css">
+    <title>Crea giocatori</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <label>Crea stanza</label>
+            <input type ="radio"name="host"value="host"class="campi host" checked="yes"/>
+            <label> Accedi alla stanza</label>
+            <input type ="radio"name ="host" value="connection" class="campi stanza"/>
+            <br/>
+            <br/>
+            <div class="host box">
+                <label>Inserisci il nome:</label><br/>
+                <input type="text" placeholder="Inserisci il tuo nome"/><br />
+                <label>Crea il codice della stanza:</label><br/>
+                <input type="text" placeholder="Crea il codice della stanza"/><br/>
+            </div>
+            <div class="connection box">
+                <label>Inserisci il nome:</label><br/>
+                <input type="text" placeholder="Inserisci il tuo nome"/><br/>
+                <label>Inserisci il codice della stanza:</label><br/>
+                <input type="text" placeholder="Inserisci il codice della stanza"/><br/>
+            </div>
+            <button><a href="Home.html">Invia</a></button>
+        </div>    
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="module">
+        $(document).ready(function(){
+            $('.connection').hide();
+            $('input[type="radio"]').click(function(){
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".box").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+    </script>
+</body>
+</html>
