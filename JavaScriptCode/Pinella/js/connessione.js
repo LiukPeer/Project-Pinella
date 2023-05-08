@@ -27,6 +27,11 @@ var playerRef
 
 var turno
 
+// salva il gameId negli appunti
+function copia(){
+  document.getElementById("idStanza").select();
+  document.execCommand("copy");
+}
 
 function createGame(){
   if(gameRef == undefined){
