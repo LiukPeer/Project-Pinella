@@ -17,4 +17,12 @@ class giocatore{
     getMano() {
         return this.mano
     }
+
+    rimuoviCarta(cardId){
+        for(let i = 0 ; i < this.mano.length ; i++){
+            if(this.mano[i].id == cardId){
+                this.mano.splice(i , 1);
+            }
+        }
+    }
 }
