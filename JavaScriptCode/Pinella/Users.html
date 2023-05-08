@@ -28,15 +28,16 @@
             <br/>
             <div class="host box">
                 <label>Inserisci il nome:</label><br/>
-                <input type="text" placeholder="Inserisci il tuo nome" id="nome"/><br />
+                <input type="text" placeholder="Inserisci il tuo nome" id="nomeHost"/><br />
                 <button onclick="createGame()">Genera codice stanza</button><br />
                 <input type="text" id="idStanza" readonly/>
             </div>
             <div class="connection box">
                 <label>Inserisci il nome:</label><br/>
-                <input type="text" placeholder="Inserisci il tuo nome"/><br/>
+                <input type="text" placeholder="Inserisci il tuo nome" id="nomeConn"/><br/>
                 <label>Inserisci il codice della stanza:</label><br/>
-                <input type="text" placeholder="Inserisci il codice della stanza"/><br/>
+                <input type="text" placeholder="Inserisci il codice della stanza" id="gameId"/><br/>
+                <button onclick="joinGame()">Collegati a una stanza</button><br />
             </div>
             <button><a href="Home.html">Inizia</a></button>
         </div>    

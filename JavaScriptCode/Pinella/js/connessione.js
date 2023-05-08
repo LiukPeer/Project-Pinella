@@ -22,30 +22,47 @@ var gameId
 var gameRef
 
 
-
-
 function createGame(){
   if(gameRef == undefined){
-    let player1 = document.getElementById("nome").value;
-    let newGameRef = allGamesRef.push();
-    newGameRef.set({
-      nome: player1
-      //bisognerà inserire tutte le informmazioni dei mazzi
-    });
-    gameId = newGameRef.key;
-    gameRef = newGameRef;
+    let name = document.getElementById("nomeHost").value;
+    // controlla se hai inserito il nome
+    if(name == ""){
+      return
+    }
+    gameRef =  allGamesRef.push();
+    gameId = gameRef.key;
     document.getElementById("idStanza").value = gameId;
     allowDisconnection();
+    newPlayer(name);
   }
 }
 
-function joinGame(gameId, player2) {
-  gameRef = allGamesRef.child(gameId)
-  gameRef.update({
-    player2: player2
+function joinGame() {
+  if(gameRef == undefined){
+    let id = document.getElementById("gameId").value
+    let name = document.getElementById("nomeConn").value;
+  
+    if(id == "" || name ==""){
+      return
+    }
+    
+    gameId = id
+    gameRef = allGamesRef.child(gameId)
+    allowDisconnection();
+    newPlayer(name);
+  }
+}
+
+function newPlayer(name){
+  let newPlayer = firebase.database().ref('players/' + gameId).push();
+  newPlayer.set({
+    name: name
+      //bisognerà inserire tutte le informmazioni del caso
   });
 }
 
+//questa funzione serve per garantire la disconnessione dal database
+// una volta che il giocatocatore si diconnette
 function allowDisconnection(){
   gameRef.onDisconnect().remove();
 }
