@@ -27,7 +27,7 @@
             <br/>
             <div class="host box">
                 <label class="label-host">Inserisci il nome :</label>
-                <input type="text" placeholder="Inserisci il tuo nome" id="nomeHost"/>
+                <input type="text"class="textNome" placeholder="Inserisci il tuo nome" id="nomeHost"/>
                 <button onclick="createGame()">Genera codice stanza</button>
                 <div class="idContainer">
                     <button class = "copy" onclick="copia()" ></button>
@@ -41,7 +41,7 @@
                 <input type="text" placeholder="Inserisci il codice della stanza" id="gameId"/>
                 <button onclick="joinGame()">Collegati a una stanza</button>
             </div>
-            <button><a href="Home.html">Inizia</a></button>
+            <button class="btn-crea"><a href="Home.html">Crea stanza</a></button>
         </div>    
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

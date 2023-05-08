@@ -87,7 +87,8 @@ label:last-child span {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    gap:8px;   
+    gap:8px;
+    font-size: 20px; 
 }
 .label-host{
     display: flex;
@@ -110,4 +111,13 @@ label:last-child span {
   margin-left: 5px;
   height: 30px;  
   width: 30px;
+}
+
+input[type="text"]{
+    display: flex;
+    text-align: center;
+    border-radius: 5px;
+}
+.btn-crea{
+    display: flex;
 }
