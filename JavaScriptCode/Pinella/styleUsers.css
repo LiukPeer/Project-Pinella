@@ -1,30 +1,84 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins',sans-serif;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
 }
-.container{
-    max-width: 100%;
-    height: 100vh;
-    background-image: url("../immagini/sfondo-legno.jpg");
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
+.container {
+  max-width: 100%;
+  height: 100vh;
+  background-image: url("../immagini/sfondo-legno.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
 }
 
-.form{
-    width: 500px;
-    height: 500px;
-    background: #2b4d2b;
-    margin: 0 auto;
-    border-radius: 12px;
-    padding: 15px;
-    color :white;
-    border: 3px solid black;
+.form {
+  width: 500px;
+  height: 500px;
+  background: #2b4d2b;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  border: 3px solid black;
 }
-.button{
-    background: black;
-    color: white;
+.button {
+  background: black;
+  color: green;
+}
+h1 {
+  text-align: center;
+}
+:focus {
+  outline: 0;
+  border-color: #0d5a17;
+  box-shadow: 0 0 0 4px #b5c9fc;
+}
+
+.opzioni div {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.opzioni input[type="radio"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.opzioni input[type="radio"]:checked + span {
+  box-shadow: 0 0 0 0.0625em #0d5a17;
+  background-color: #dee7ff;
+  z-index: 1;
+  color: #0d5a17;
+}
+
+label span {
+  display: block;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 0.375em 0.75em;
+  position: relative;
+  margin-left: 0.0625em;
+  box-shadow: 0 0 0 0.0625em #b5bfd9;
+  letter-spacing: 0.05em;
+  color: #247444;
+  text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+label:first-child span {
+  border-radius: 0.375em 0 0 0.375em;
+}
+
+label:last-child span {
+  border-radius: 0 0.375em 0.375em 0;
 }
