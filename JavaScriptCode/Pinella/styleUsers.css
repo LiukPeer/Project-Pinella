@@ -93,3 +93,21 @@ label:last-child span {
     display: flex;
     justify-content: space-around;
 }
+
+.idContainer{
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+.idOutput{
+  width:100%;
+}
+.copy{
+  display: flex;
+  background-image: url("../immagini/save.png");
+  background-size: cover;
+  margin-left: 5px;
+  height: 30px;  
+  width: 30px;
+}

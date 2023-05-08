@@ -29,7 +29,10 @@
                 <label class="label-host">Inserisci il nome :</label>
                 <input type="text" placeholder="Inserisci il tuo nome" id="nomeHost"/>
                 <button onclick="createGame()">Genera codice stanza</button>
-                <input type="text" id="idStanza" readonly/>
+                <div class="idContainer">
+                    <button class = "copy" onclick="copia()" ></button>
+                    <input class="idOutput" type="text" id="idStanza" readonly/>
+                </div>
             </div>
             <div class="connection box">
                 <label>Inserisci il nome :</label>
