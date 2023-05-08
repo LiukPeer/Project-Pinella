@@ -23,7 +23,7 @@
   padding: 15px;
   color: white;
   border: 3px solid black;
-  box-shadow: 2px 1px 29px 6px rgba(0,0,0,0.3);
+  box-shadow: 2px 1px 29px 6px rgba(0, 0, 0, 0.3);
 }
 .button {
   background: black;
@@ -83,52 +83,66 @@ label:first-child span {
 label:last-child span {
   border-radius: 0 0.375em 0.375em 0;
 }
-.box{
-    display: flex;
-    flex-direction: column;
-    gap:8px;
-    font-size: 20px; 
-    position: relative;
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 20px;
+  position: relative;
 }
-.label-host{
-    display: flex;
-    justify-content: space-around;
+.label-host {
+  display: flex;
+  justify-content: space-around;
 }
 
-.idContainer{
+.idContainer {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
 }
 
-.idOutput{
-  width:100%;
+.idOutput {
+  width: 100%;
+  height: 30px;
 }
-.copy{
+.textNome{
+  height: 30px;
+}
+.copy {
   display: flex;
   background-image: url("../immagini/save.png");
   background-size: cover;
   margin-left: 5px;
-  height: 30px;  
+  height: 30px;
   width: 30px;
 }
 
-input[type="text"]{
-    display: flex;
-    text-align: center;
-    border-radius: 5px;
+input[type="text"] {
+  display: flex;
+  text-align: center;
+  border-radius: 5px;
 }
-.btnInvia{
-    display: flex;
-    position:relative;
-    justify-content: space-evenly;
-    align-content: stretch;
-    flex-direction: column;
+.btnInvia {
+  display: flex;
+  position: relative;
+  justify-content: space-evenly;
+  align-content: stretch;
+  flex-direction: column;
+  transform: translate(0,125px);
 }
-.idStanza{
-    width: 30px;
+.idStanza {
+  width: 30px;
 }
-.label-connect{
-    display: flex;
-    justify-content: space-around;
+.label-connect {
+  display: flex;
+  justify-content: space-around;
+  height: 30px;
+}
+.label-connect1{
+  display: flex;
+  justify-content: space-around;
+  height: 30px;
+}
+.campi{
+  height: 30px;
 }
