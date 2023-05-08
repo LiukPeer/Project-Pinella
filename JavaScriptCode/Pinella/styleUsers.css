@@ -23,6 +23,7 @@
   padding: 15px;
   color: white;
   border: 3px solid black;
+  box-shadow: 2px 1px 29px 6px rgba(0,0,0,0.3);
 }
 .button {
   background: black;
@@ -81,4 +82,14 @@ label:first-child span {
 
 label:last-child span {
   border-radius: 0 0.375em 0.375em 0;
+}
+.box{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap:8px;   
+}
+.label-host{
+    display: flex;
+    justify-content: space-around;
 }
