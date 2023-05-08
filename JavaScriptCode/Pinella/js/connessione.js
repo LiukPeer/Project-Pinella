@@ -18,20 +18,23 @@ const app = firebase.initializeApp(firebaseConfig)
 const gamesRef = firebase.database().ref("games")
 
 
-var gameId = createGame("prova")
-var currentGame = gamesRef.child(gameId)
+//var gameId = createGame("prova")
+//var currentGame = gamesRef.child(gameId)
 //games sarà il nodo presente nel database
 
-console.log(currentGame)
+//
+//currentGame.onDisconnect().remove();
 
-currentGame.onDisconnect().remove();
 
-function createGame(player1){
+
+function createGame(){
+  let player1 = document.getElementById("nome").value;
   let newGameRef = gamesRef.push();
   newGameRef.set({
     nome: player1
     //bisognerà inserire tutte le informmazioni dei mazzi
   });
+  document.getElementById("idStanza").value = newGameRef.key;
   return newGameRef.key;
 }
 
