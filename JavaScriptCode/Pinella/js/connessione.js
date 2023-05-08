@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -15,9 +14,36 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-console.log(app)
+const app = firebase.initializeApp(firebaseConfig)
+const gamesRef = firebase.database().ref("games")
 
+
+var gameId = createGame("prova")
+var currentGame = gamesRef.child(gameId)
+//games sarà il nodo presente nel database
+
+console.log(currentGame)
+
+currentGame.onDisconnect().remove();
+
+function createGame(player1){
+  let newGameRef = gamesRef.push();
+  newGameRef.set({
+    nome: player1
+    //bisognerà inserire tutte le informmazioni dei mazzi
+  });
+  return newGameRef.key;
+}
+
+function joinGame(gameId, player2) {
+  let newGameRef = gamesRef.child(gameId);
+  newGameRef.update({
+    player2: player2
+  });
+}
+
+
+/*
 (function () {
   firebase.auth().onAuthStateChanged((user) => {
     console.log(user);
@@ -51,3 +77,4 @@ console.log(app)
   });
 
 });
+*/
