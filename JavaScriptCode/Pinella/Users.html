@@ -28,13 +28,13 @@
             <div class="host box">
                 <label class="label-host">Inserisci il nome :</label>
                 <input type="text"class="textNome" placeholder="Inserisci il tuo nome" id="nomeHost"/>
-                <button onclick="createGame()">Genera codice stanza</button>
+                <button onclick="createGame()" class="btn-stanza">Genera codice stanza</button>
                 <div class="idContainer">
                     <button class = "copy" onclick="copia()" ></button>
                     <input class="idOutput" type="text" id="idStanza" readonly/>
                 </div>
                 <div class="btnInvia1">
-                    <button><a href="Home.html">Inizia</a></button>
+                    <a href="Home.html"class="btn-invia1">Inizia</a>
                 </div>
             </div>
             <div class="connection box">
@@ -42,9 +42,9 @@
                 <input type="text"class="campi" placeholder="Inserisci il tuo nome" id="nomeConn"/>
                 <label class="label-connect1">Inserisci il codice della stanza:</label>
                 <input type="text"class="campi" placeholder="Inserisci il codice della stanza" id="gameId"/>
-                <button onclick="joinGame()">Collegati a una stanza</button>
+                <button onclick="joinGame()" class="btn-join">Collegati a una stanza</button>
                 <div class="btnInvia2">
-                    <button><a href="Home.html">Inizia</a></button>
+                    <a href="Home.html"class="btn-invia2">Inizia</a>
                 </div>
             </div>
             
