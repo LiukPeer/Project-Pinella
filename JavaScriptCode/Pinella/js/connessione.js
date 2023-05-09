@@ -51,6 +51,7 @@ function createGame(){
     newPlayer(name);
   }
 }
+
 function joinGame() {
   if(gameRef == undefined){
     let id = document.getElementById("gameId").value
