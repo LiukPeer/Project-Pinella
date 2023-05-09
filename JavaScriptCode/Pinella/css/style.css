@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+.container {
+  max-width: 100%;
+  height: 100vh;
+  background-image: url("../../immagini/sfondo-legno.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+}
+.tavolo {
+  background: #2b4d2b;
+  height: 90%;
+  width: 100%;
+  margin: 2%;
+  border: solid 15px #090402;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  align-items: center;
+}
+.img-retro {
+  height: 75px;
+  width: 50px;
+  display: flex;
+}
+
+.giocatore {
+  display: flex;
+  position: relative;
+  gap: 8px;
+  width: fit-content;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.mazzo {
+  left: 0;
+}
+.scarto {
+  width: fit-content;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.util1 {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: fit-content;
+}
