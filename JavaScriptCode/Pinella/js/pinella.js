@@ -1,6 +1,7 @@
 
 let mazzo = [];
 let giocatori =[]
+let mazzoScarto=[]
 
 //turno andrà modificato dinamicamente
 let turno = 0
@@ -48,6 +49,7 @@ function allowDrop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("carta");
     document.querySelector(".scarto").appendChild(document.getElementById(data));
+    mazzoScarto.push(data)
     giocatori[turno].rimuoviCarta(data)
   }
 
