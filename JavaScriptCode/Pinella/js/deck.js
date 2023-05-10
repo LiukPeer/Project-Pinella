@@ -2,32 +2,31 @@
  * Per il caso di pinella, se booleanPinella è true,
  * non verranno creati i 2 rossi e i 2 neri saranno delle pinelle
  */
-class deck{
+class deck {
 
     mazzo = []
+
     constructor(maxValore, arraySemi, booleanJoker, numeroMazzi, booleanPinella) {
         let cardID = 0;
-        for (let nDeck=0; nDeck < numeroMazzi; nDeck++) {
+        for (let nDeck = 0; nDeck < numeroMazzi; nDeck++) {
             for (let nSeme = 0; nSeme < arraySemi.length; nSeme++) {
                 for (let nValore = 1; nValore <= maxValore; nValore++) {
-                    if(nValore === 2 && booleanPinella){
-                        if (arraySemi[nSeme]==='clubs'){
-                            this.mazzo.push(new joker("2_of_clubs" , false , "carta_" + cardID))
+                    if (nValore === 2 && booleanPinella) {
+                        if (arraySemi[nSeme] === 'clubs') {
+                            this.mazzo.push(new joker("2_of_clubs", false, "carta_" + cardID))
+                        } else if (arraySemi[nSeme] === 'spades') {
+                            this.mazzo.push(new joker("2_of_spades", false, "carta_" + cardID))
                         }
-                        else if (arraySemi[nSeme]==='spades'){
-                            this.mazzo.push(new joker("2_of_spades" , false , "carta_" + cardID))
-                        }
-                    }
-                    else{
-                        this.mazzo.push(new carte(nValore, arraySemi[nSeme] , "carta_" + cardID))
+                    } else {
+                        this.mazzo.push(new carte(nValore, arraySemi[nSeme], "carta_" + cardID))
                     }
                     cardID++
                 }
             }
-            if (booleanJoker===true) {
-                this.mazzo.push(new joker("red_joker" , true , "carta_" + cardID))
+            if (booleanJoker === true) {
+                this.mazzo.push(new joker("red_joker", true, "carta_" + cardID))
                 cardID++
-                this.mazzo.push(new joker("black_joker" , true , "carta_" + cardID))
+                this.mazzo.push(new joker("black_joker", true, "carta_" + cardID))
                 cardID++
             }
         }
@@ -43,7 +42,7 @@ class deck{
         }
     }
 
-    getMazzo(){
+    getMazzo() {
         return this.mazzo
     }
 }

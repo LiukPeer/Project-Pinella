@@ -1,42 +1,42 @@
-class carte{
+class carte {
 
-    #numero 
+    #numero
     #seme
 
-    nomi = ["ace" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9" , "10" , "jack" , "queen" , "king"]
+    nomi = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
 
     id
     src
 
     /**
      * Crea una nuova carta avente valore e seme indicati
-     * @param {*} numero 
-     * @param {*} seme 
+     * @param {*} numero
+     * @param {*} seme
      */
-    constructor(numero , seme , cardId){
+    constructor(numero, seme, cardId) {
         this.numero = numero
         this.seme = seme
         this.id = cardId
-        this.src = this.nomi[numero -1] + "_of_" + seme
+        this.src = this.nomi[numero - 1] + "_of_" + seme
     }
 
 
-    getSeme(){
+    getSeme() {
         return this.seme
     }
 
-    getNumero(){
+    getNumero() {
         return this.numero
     }
 }
 
-class joker{
+class joker {
 
     id
     src
     isJoker
 
-    constructor(jollyName , isJoker , cardID) {
+    constructor(jollyName, isJoker, cardID) {
         this.src = jollyName
         this.isJoker = isJoker
         this.id = cardID

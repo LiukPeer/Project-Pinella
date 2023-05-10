@@ -1,17 +1,19 @@
-body{
+body {
     background-color: rgb(155, 211, 234);
 }
+
 .sfondo-immagine-gioco-select {
-    width:100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .bd-placeholder-img {
-     font-size: 1.125rem;
-     text-anchor: middle;
-     -webkit-user-select: none;
-     -moz-user-select: none;
-     user-select: none;
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 @media (min-width: 768px) {
@@ -71,6 +73,7 @@ body{
     --bs-btn-active-bg: #5a23c8;
     --bs-btn-active-border-color: #5a23c8;
 }
+
 .bd-mode-toggle {
     z-index: 1500;
 }

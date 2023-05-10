@@ -9,56 +9,56 @@
     <title>Crea giocatori</title>
 </head>
 <body>
-    <div class="container">
-        <div class="form">
-            <h1>STANZA</h1>
-            <div class="opzioni">
-                <div>
-                    <label>
-                        <input type ="radio"name="host"value="host"class="campi host" checked="yes"/>
-                        <span>Crea una stanza</span>
-                    </label>
-                    <label>
-                        <input type ="radio"name ="host" value="connection" class="campi stanza"/>
-                        <span>Collegati a una stanza</span>
-                    </label>
-                </div>
+<div class="container">
+    <div class="form">
+        <h1>STANZA</h1>
+        <div class="opzioni">
+            <div>
+                <label>
+                    <input type="radio" name="host" value="host" class="campi host" checked="yes"/>
+                    <span>Crea una stanza</span>
+                </label>
+                <label>
+                    <input type="radio" name="host" value="connection" class="campi stanza"/>
+                    <span>Collegati a una stanza</span>
+                </label>
             </div>
-            <br/>
-            <div class="host box">
-                <label class="label-host">Inserisci il nome :</label>
-                <input type="text"class="textNome" placeholder="Inserisci il tuo nome" id="nomeHost"/>
-                <button onclick="createGame()" class="btn-stanza">Genera codice stanza</button>
-                <div class="idContainer">
-                    <button class = "copy" onclick="copia()" ></button>
-                    <input class="idOutput" type="text" id="idStanza" readonly/>
-                </div>
-                <div class="btnInvia1">
-                    <a href="Home.html"class="btn-invia">Inizia</a>
-                </div>
+        </div>
+        <br/>
+        <div class="host box">
+            <label class="label-host">Inserisci il nome :</label>
+            <input type="text" class="textNome" placeholder="Inserisci il tuo nome" id="nomeHost"/>
+            <button onclick="createGame()" class="btn-stanza">Genera codice stanza</button>
+            <div class="idContainer">
+                <button class="copy" onclick="copia()"></button>
+                <input class="idOutput" type="text" id="idStanza" readonly/>
             </div>
-            <div class="connection box" style="display : none">
-                <label class="label-connect">Inserisci il nome :</label>
-                <input type="text"class="campi" placeholder="Inserisci il tuo nome" id="nomeConn"/>
-                <label class="label-connect1">Inserisci il codice della stanza:</label>
-                <input type="text"class="campi" placeholder="Inserisci il codice della stanza" id="gameId"/>
-                <button onclick="joinGame()" class="btn-join">Collegati a una stanza</button>
-                <div class="btnInvia2">
-                    <a href="Home.html"class="btn-invia">Inizia</a>
-                </div>
+            <div class="btnInvia1">
+                <a href="Home.html" class="btn-invia">Inizia</a>
             </div>
-            
-        </div>    
+        </div>
+        <div class="connection box" style="display : none">
+            <label class="label-connect">Inserisci il nome :</label>
+            <input type="text" class="campi" placeholder="Inserisci il tuo nome" id="nomeConn"/>
+            <label class="label-connect1">Inserisci il codice della stanza:</label>
+            <input type="text" class="campi" placeholder="Inserisci il codice della stanza" id="gameId"/>
+            <button onclick="joinGame()" class="btn-join">Collegati a una stanza</button>
+            <div class="btnInvia2">
+                <a href="Home.html" class="btn-invia">Inizia</a>
+            </div>
+        </div>
+
     </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="js/connessione.js"></script>
-    <script type="module">
-        $(document).ready(function(){
-            $('input[type="radio"]').click(function(){
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="js/connessione.js"></script>
+<script type="module">
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
             var inputValue = $(this).attr("value");
             var targetBox = $("." + inputValue);
             $(".box").not(targetBox).hide();
@@ -67,6 +67,6 @@
             disconnect();
         });
     });
-    </script>
+</script>
 </body>
 </html>
