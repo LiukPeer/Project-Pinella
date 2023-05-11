@@ -8,10 +8,12 @@ let turno = 0
 const nCarte = 13
 const semi = ["clubs", "diamonds", "hearts", "spades"]
 
-function caricaGiocatori() {
-    giocatori.push(new giocatore(1, "prova"))
-}
+let sessionId;
 
+function caricaGiocatori() {
+    sessionId = sessionStorage.getItem("sessionId");
+    giocatori.push(JSON.parse(sessionStorage.getItem("giocatore")));
+}
 
 function distribuisci() {
     for (let i = 0; i < nCarte; i++) {
@@ -25,36 +27,54 @@ function setupMazzo() {
     mazzo = new deck(13, semi, true, 2, true).getMazzo()
 }
 
-function pescaMazzo() {
-    let carta = mazzo.pop();
+function pesca(carta){
     giocatori[turno].mano.push(carta);
 
     let myImage = new Image(50, 75);
     myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
     myImage.id = carta.id;
-
     document.querySelector(".giocatore").appendChild(myImage);
-
-    myImage.addEventListener("dragstart", function drag(ev) {
-        ev.dataTransfer.setData("carta", ev.target.id);
-    });
+    //listener per poter scartare
+    myImage.addEventListener("dragstart", drag);
+}
+function drag(ev) {
+    ev.dataTransfer.setData("carta", ev.target.id);
 }
 
-// Questa parte gestisce lo carto
-function allowDrop(ev) {
-    ev.preventDefault();
+function pescaMazzo() {
+    pesca(mazzo.pop())
+}
+
+
+// Questa parte gestisce lo scarto
+function pescaScarto(id) {
+    let flag = false;
+    // qui le carte vengono pescate dalla cima dello scarto
+    for(let i = mazzoScarto.length-1 ; i >= 0 && !flag; i--){
+        flag = flag || mazzoScarto[i].id == id
+        document.querySelector(".scarto").removeChild(document.getElementById(mazzoScarto[i].id))
+        pesca(mazzoScarto.pop());
+    }
 }
 
 function scarto(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("carta");
-    document.querySelector(".scarto").appendChild(document.getElementById(data));
-    mazzoScarto.push(data)
-    giocatori[turno].rimuoviCarta(data)
+    let carta = document.getElementById(data);
+    //nel caso in cui la carta sia null esce
+    if(carta == null){
+        return;
+    }
+    document.querySelector(".scarto").appendChild(carta);
+    //rimuove lo swap delle carte nello carto
+    carta.removeEventListener("dragstart" , drag , false);
+    //listener per poter pescare
+    carta.addEventListener("click" , ev =>{
+        pescaScarto(ev.srcElement.id);
+    })
+    mazzoScarto.push(giocatori[turno].rimuoviCarta(data));
 }
 
-function pescaScarto() {
-
+function allowDrop(ev) {
+    ev.preventDefault();
 }
-
-

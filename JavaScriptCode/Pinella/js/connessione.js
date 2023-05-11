@@ -25,7 +25,9 @@ var gameRef
 var playerId
 var playerRef
 
-var turno
+//var turno
+
+
 
 // salva il gameId negli appunti
 function copia() {
@@ -76,10 +78,16 @@ function newPlayer(name) {
         //bisognerà inserire tutte le informmazioni del caso
     });
     playerId = playerRef.key;
+    let player = new giocatore(playerId , name)
+    // salva queste variabili nella memoria della sessione
+    sessionStorage.setItem("giocatore" , JSON.stringify(player));
+    sessionStorage.setItem("sessionId" , gameId);
 }
 
 //questa funzione serve per garantire la disconnessione dal database
 // una volta che il giocatocatore si diconnette
+
+// IMPORTANTE bisognerà cambiarlo perchè disconnette ogni volta che viene cambiata la pagina
 function allowDisconnection() {
     if (gameRef != undefined) {
         gameRef.onDisconnect().remove();

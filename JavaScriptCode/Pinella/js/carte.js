@@ -1,7 +1,7 @@
 class carte {
 
-    #numero
-    #seme
+    numero
+    seme
 
     nomi = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
 
@@ -20,14 +20,6 @@ class carte {
         this.src = this.nomi[numero - 1] + "_of_" + seme
     }
 
-
-    getSeme() {
-        return this.seme
-    }
-
-    getNumero() {
-        return this.numero
-    }
 }
 
 class joker {
