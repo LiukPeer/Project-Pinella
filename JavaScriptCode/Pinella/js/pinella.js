@@ -1,5 +1,5 @@
 let mazzo = [];
-let giocatori = []
+let giocatori = [];
 let mazzoScarto = []
 
 //turno andrà modificato dinamicamente
@@ -12,7 +12,12 @@ let sessionId;
 
 function caricaGiocatori() {
     sessionId = sessionStorage.getItem("sessionId");
-    giocatori.push(JSON.parse(sessionStorage.getItem("giocatore")));
+    let fakePlayer = JSON.parse(sessionStorage.getItem("giocatore"));
+    let player = new giocatore();
+    player.setId(fakePlayer.id);
+    player.setNome(fakePlayer.nome);
+    player.setMano(fakePlayer.mazzo);
+    giocatori.push(player);
 }
 
 function distribuisci() {

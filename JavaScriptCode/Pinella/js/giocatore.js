@@ -9,16 +9,16 @@ class giocatore {
         this.nome = nome;
     }
 
-    getId() {
-        return this.#id
+    setId(id) {
+        this.#id
     }
 
-    getNome() {
-        return this.#nome
+    setNome(nome) {
+        this.#nome
     }
 
-    getMano() {
-        return this.mano
+    setMano(mano) {
+        this.mano
     }
 
     rimuoviCarta(cardId) {
