@@ -1,6 +1,6 @@
 class giocatore {
-    #id
-    #nome
+    id
+    nome
 
     mano = []
 
@@ -9,17 +9,12 @@ class giocatore {
         this.nome = nome;
     }
 
-    setId(id) {
-        this.#id
+    initialize(data){
+        this.id = data.id;
+        this.nome = data.nome
+        return this
     }
 
-    setNome(nome) {
-        this.#nome
-    }
-
-    setMano(mano) {
-        this.mano
-    }
 
     rimuoviCarta(cardId) {
         let tmp;

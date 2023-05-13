@@ -21,13 +21,8 @@ const allGamesRef = firebase.database().ref("games")
 var gameId
 var gameRef
 
-//questa parte dovrà essere distribuita tra le varie classi
 var playerId
 var playerRef
-
-//var turno
-
-
 
 // salva il gameId negli appunti
 function copia() {
@@ -78,19 +73,30 @@ function newPlayer(name) {
         //bisognerà inserire tutte le informmazioni del caso
     });
     playerId = playerRef.key;
-    let player = new giocatore(playerId , name)
+    //let player = new giocatore(playerId , name)
+    let player = {
+        id : playerId,
+        nome : name,
+    }
     // salva queste variabili nella memoria della sessione
     sessionStorage.setItem("giocatore" , JSON.stringify(player));
     sessionStorage.setItem("sessionId" , gameId);
+    sessionStorage.setItem("dbConfig" , JSON.stringify(firebaseConfig));
 }
 
 //questa funzione serve per garantire la disconnessione dal database
 // una volta che il giocatocatore si diconnette
 
-// IMPORTANTE bisognerà cambiarlo perchè disconnette ogni volta che viene cambiata la pagina
 function allowDisconnection() {
     if (gameRef != undefined) {
         gameRef.onDisconnect().remove();
+    }
+}
+
+// questo permette di cambiare pagina senza disconnettersi dal database
+function disableDisconnection(){
+    if (gameRef != undefined) {
+        gameRef.onDisconnect().cancel();
     }
 }
 

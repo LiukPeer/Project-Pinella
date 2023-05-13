@@ -8,28 +8,41 @@ let turno = 0
 const nCarte = 13
 const semi = ["clubs", "diamonds", "hearts", "spades"]
 
-let sessionId;
 
-function caricaGiocatori() {
-    sessionId = sessionStorage.getItem("sessionId");
-    let fakePlayer = JSON.parse(sessionStorage.getItem("giocatore"));
-    let player = new giocatore();
-    player.setId(fakePlayer.id);
-    player.setNome(fakePlayer.nome);
-    player.setMano(fakePlayer.mazzo);
-    giocatori.push(player);
+//inizializza il database
+firebase.initializeApp(JSON.parse(sessionStorage.getItem("dbConfig")));
+
+const gameId = sessionStorage.getItem("sessionId");
+const gameRef = firebase.database().ref("games/" + gameId)
+
+var playerId;
+var playerRef;
+
+// rimuove la sessione nel caso in cui qualcuno si disconnetta
+function allowDisconnection() {
+    if (gameRef != undefined) {
+        gameRef.onDisconnect().remove();
+    }
 }
 
-function distribuisci() {
+function setup(){
+    // genera il giocatore a partire dal cookie
+    sessionId = sessionStorage.getItem("sessionId");
+    let player = new giocatore();
+    player = player.initialize(JSON.parse(sessionStorage.getItem("giocatore")));
+    giocatori.push(player);
+    playerId = player.id;
+    playerRef = gameRef.child(playerId);
+
+    // crea il mazzo
+    mazzo = new deck(13, semi, true, 2, true).getMazzo()
+
+    // distribuisce
     for (let i = 0; i < nCarte; i++) {
         for (let j = 0; j < giocatori.length; j++) {
             pescaMazzo(giocatori[j]);
         }
     }
-}
-
-function setupMazzo() {
-    mazzo = new deck(13, semi, true, 2, true).getMazzo()
 }
 
 function pesca(carta){
@@ -49,7 +62,6 @@ function drag(ev) {
 function pescaMazzo() {
     pesca(mazzo.pop())
 }
-
 
 // Questa parte gestisce lo scarto
 function pescaScarto(id) {
