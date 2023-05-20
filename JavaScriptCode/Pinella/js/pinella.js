@@ -1,6 +1,5 @@
 let mazzo = [];
-let giocatori = [];
-let mazzoScarto = []
+let mazzoScarto = [];
 
 //turno andrà modificato dinamicamente
 let turno = 0
@@ -13,8 +12,17 @@ const semi = ["clubs", "diamonds", "hearts", "spades"]
 firebase.initializeApp(JSON.parse(sessionStorage.getItem("dbConfig")));
 
 const gameId = sessionStorage.getItem("sessionId");
-const gameRef = firebase.database().ref("games/" + gameId)
+const gameRef = firebase.database().ref("games/" + gameId);
 
+const allPlayersRef = firebase.database().ref("games/" + gameId + "/players");
+
+const deckRef = firebase.database().ref('games/' + gameId + "/deck");
+const scartoRef = firebase.database().ref('games/' + gameId + "/discard");
+
+
+var manoRef;
+
+var player;
 var playerId;
 var playerRef;
 
@@ -25,28 +33,180 @@ function allowDisconnection() {
     }
 }
 
+// chiude la sessione quando un giocatore si disconnette
+allPlayersRef.on("child_removed", (snapshot) => {
+    if(snapshot.val().id != playerId){
+        alert("Il giocatore " + snapshot.val().nome + " si è disconnesso");
+    }
+    window.location = "Users.html"
+  })
+
 function setup(){
     // genera il giocatore a partire dal cookie
-    sessionId = sessionStorage.getItem("sessionId");
-    let player = new giocatore();
-    player = player.initialize(JSON.parse(sessionStorage.getItem("giocatore")));
-    giocatori.push(player);
+    player = (new giocatore()).initialize(JSON.parse(sessionStorage.getItem("giocatore")));
     playerId = player.id;
-    playerRef = gameRef.child(playerId);
+    playerRef = firebase.database().ref('games/' + gameId + "/players/" + playerId);
+    manoRef = firebase.database().ref("games/" + gameId + "/players/" + playerId + "/mano");
 
-    // crea il mazzo
-    mazzo = new deck(13, semi, true, 2, true).getMazzo()
-
-    // distribuisce
-    for (let i = 0; i < nCarte; i++) {
-        for (let j = 0; j < giocatori.length; j++) {
-            pescaMazzo(giocatori[j]);
+    playerRef.once("value").then((snapshot)=>{
+        if(snapshot.exists()){
+            // se il player è l'host inizializza la partita
+            if(snapshot.val().isHost){
+                initDb();
+            }
+            // quando i dati vengono caricati sul db viene aggiornato il client
+            playerRef.once("value").then((snapshot) => {
+                updateClient()
+            })
+        // se non trova un collegamento
+        }else{
+            console.log("no data available")
         }
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
+// setta il database IMPORTANTE CHIAMARE SOLO UNA VOLTA
+function initDb(){
+    // crea il mazzo
+    mazzo = new deck(13, semi, true, 2, true).getMazzo(); 
+
+    // distribuisce le carte
+    allPlayersRef.once("value").then((snapshot) => {
+        let players = snapshot.val();
+
+        for (let i = 0; i < nCarte; i++) {
+            Object.keys(players).forEach((key) => {
+                //deve aggiungere una carta a ciascun gioctore
+                let tmpManoRef = firebase.database().ref("games/" + gameId + "/players/" + players[key].id + "/mano");
+                pushCard(tmpManoRef , mazzo.pop());
+            });
+        }
+    });
+
+    // scarta la prima carta del mazzo
+    pushCard(scartoRef , mazzo.pop())
+    //setScarto([mazzo.pop()]);
+
+    // inerisce il mazzo all'interno del database
+    mazzo.forEach(carta => {
+        pushCard(deckRef , carta);
+    });
+
+    // imposta il turno a 0
+    gameRef.update({
+        turno: 0
+    })
+}
+
+// inserisce la carta all'interno del riferimento
+function pushCard(ref , carta){
+    if(carta instanceof joker){
+        ref.push().set({
+            id : carta.id,
+            isJoker : true,
+            isREALLYJoker : carta.isJoker,
+            src : carta.src
+        })
+    }else if(carta instanceof carte){
+        ref.push().set({
+            id : carta.id,
+            isJoker : false,
+            numero : carta.numero,
+            seme : carta.seme
+        })
+    }else{
+        console.error("invalid argument!")
+    }
+}
+
+// preleva una carta dal database e la inserisce nell'insieme
+function getCard(insieme , carta){
+    if(carta.isJoker){
+        insieme.push(new joker(carta.src , carta.isREALLYJoker , carta.id));
+    }else{
+        insieme.push(new carte(carta.numero , carta.seme , carta.id));
+    }
+}
+
+// preleva tutte le informazioni dal database
+function updateClient(){
+
+    // aggiorna il mazzo
+    deckRef.once("value").then((snapshot) => {
+        mazzo = [];
+        let m = snapshot.val();
+        Object.keys(m).forEach(carta => {
+            getCard(mazzo , m[carta]);
+        });
+    });
+
+    //aggiorna lo scarto
+    scartoRef.once("value").then((snapshot) => {
+        mazzoScarto = [];
+        let m = snapshot.val();
+        Object.keys(m).forEach(carta => {
+            getCard(mazzoScarto , m[carta]);
+        });
+        setScarto();
+    });
+
+    // aggiorna la mano
+    manoRef.once("value").then((snapshot) => {
+        player.mano = [];
+        let m = snapshot.val();
+        Object.keys(m).forEach(carta => {
+            getCard(player.mano , m[carta]);
+        });
+        displayMano()
+    });
+
+}
+
+// salva tutte le informazioni sul database
+function updateDb(){
+    
+}
+
+
+// mostra la mano per la preima volta al giocatore
+function displayMano(){
+    let c = document.querySelector(".giocatore");
+    //c.childNodes.forEach(carta => {
+    //    c.removeChild(carta);
+    //});
+
+    player.mano.forEach(carta => {
+        let myImage = new Image(50, 75);
+        myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
+        myImage.id = carta.id;
+        c.appendChild(myImage);
+        //listener per poter scartare
+        myImage.addEventListener("dragstart", drag);
+    })
+}
+
+
+// imposta lo scarto come un nuovo array di carte
+function setScarto(){
+    let scarto = document.querySelector(".scarto");
+    while (scarto.firstChild){
+        scarto.removeChild(scarto.firstChild);
+    }
+    for(i = 0 ; i < mazzoScarto.length ; i++){
+        let carta = new Image(50, 75);
+        carta.src = "../immagini/PNG-cards-1.3/" + mazzoScarto[i].src + ".png";
+        carta.id = mazzoScarto[i].id;
+        scarto.appendChild(carta);
+        carta.addEventListener("click" , ev =>{
+            pescaScarto(ev.srcElement.id);
+        })
     }
 }
 
 function pesca(carta){
-    giocatori[turno].mano.push(carta);
+    player.mano.push(carta);
 
     let myImage = new Image(50, 75);
     myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
@@ -54,9 +214,6 @@ function pesca(carta){
     document.querySelector(".giocatore").appendChild(myImage);
     //listener per poter scartare
     myImage.addEventListener("dragstart", drag);
-}
-function drag(ev) {
-    ev.dataTransfer.setData("carta", ev.target.id);
 }
 
 function pescaMazzo() {
@@ -89,7 +246,11 @@ function scarto(ev) {
     carta.addEventListener("click" , ev =>{
         pescaScarto(ev.srcElement.id);
     })
-    mazzoScarto.push(giocatori[turno].rimuoviCarta(data));
+    mazzoScarto.push(player.rimuoviCarta(data));
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("carta", ev.target.id);
 }
 
 function allowDrop(ev) {

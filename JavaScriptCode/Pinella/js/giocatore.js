@@ -11,7 +11,7 @@ class giocatore {
 
     initialize(data){
         this.id = data.id;
-        this.nome = data.nome
+        this.nome = data.nome;
         return this
     }
 

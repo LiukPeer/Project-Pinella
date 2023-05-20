@@ -1,6 +1,3 @@
-// Import the functions you need from the SDKs you need
-
-//per qualche motivo questo imprt da dei problemi
 //import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -16,7 +13,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 const allGamesRef = firebase.database().ref("games")
 var gameId
 var gameRef
@@ -44,8 +41,7 @@ function createGame() {
         })
         gameId = gameRef.key;
         document.getElementById("idStanza").value = gameId;
-        allowDisconnection();
-        newPlayer(name);
+        newPlayer(name , true);
     }
 }
 
@@ -60,24 +56,28 @@ function joinGame() {
 
         gameId = id
         gameRef = allGamesRef.child(gameId)
-        allowDisconnection();
-        newPlayer(name);
+        newPlayer(name , false);
     }
 }
 
 //crea un nuovo nodo giocatore nel db
-function newPlayer(name) {
+function newPlayer(nome , isHost) {
+    allowDisconnection();
     playerRef = firebase.database().ref('games/' + gameId + "/players").push();
     playerRef.set({
-        name: name
+        id: playerRef.key,
+        nome: nome,
+        isHost: isHost,
+        mano:{}
         //bisognerà inserire tutte le informmazioni del caso
     });
     playerId = playerRef.key;
-    //let player = new giocatore(playerId , name)
+
     let player = {
         id : playerId,
-        nome : name,
+        nome : nome,
     }
+
     // salva queste variabili nella memoria della sessione
     sessionStorage.setItem("giocatore" , JSON.stringify(player));
     sessionStorage.setItem("sessionId" , gameId);
@@ -114,40 +114,3 @@ function resetId() {
     gameId = undefined;
     gameRef = undefined;
 }
-
-
-/*
-(function () {
-  firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
-    if (user) {
-      //You're logged in!
-      playerId = user.uid;
-      playerRef = firebase.database().ref(`players/${playerId}`);
-
-      const name = createName();
-      playerNameInput.value = name;
-
-      playerRef.set({
-        id: playerId,
-        name
-      });
-
-      //Remove me from Firebase when I diconnect
-      playerRef.onDisconnect().remove();
-
-      //Begin the game now that we are signed in
-      initGame();
-    } else {
-      //You're logged out.
-    }
-  });
-  firebase.auth().signInAnonymously().catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
-    console.log(errorCode, errorMessage);
-  });
-
-});
-*/

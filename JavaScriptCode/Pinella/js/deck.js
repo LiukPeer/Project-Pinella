@@ -30,16 +30,24 @@ class deck {
                 cardID++
             }
         }
-        this.shuffleMazzo()
+        this.shuffle()
     }
 
-    shuffleMazzo() {
+    shuffle() {
         for (let count = this.mazzo.length - 1; count > 0; count--) {
             let random = Math.floor(Math.random() * (count + 1));
             let temp = this.mazzo[count];
             this.mazzo[count] = this.mazzo[random];
             this.mazzo[random] = temp;
         }
+    }
+
+    find(id){
+        this.mazzo.forEach(carta =>{
+            if(carta.id == id){
+                return carta;
+            }
+        })
     }
 
     getMazzo() {
