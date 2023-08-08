@@ -21,6 +21,9 @@ var gameRef
 var playerId
 var playerRef
 
+// numero massimo di giocatori nella stanza
+var numberOfPlayers = 2
+
 // salva il gameId negli appunti
 function copia() {
     document.getElementById("idStanza").select();
@@ -37,7 +40,10 @@ function createGame() {
         gameRef = allGamesRef.push();
         // genera il campo turno
         gameRef.update({
-            turno: 0
+            maxNumberOfPlayers: numberOfPlayers,
+            playersConnected: 0,
+            turno: 0,
+            started: false
         })
         gameId = gameRef.key;
         document.getElementById("idStanza").value = gameId;
@@ -56,36 +62,60 @@ function joinGame() {
 
         gameId = id
         gameRef = allGamesRef.child(gameId)
-        newPlayer(name , false);
+        newPlayer(name , false)
     }
 }
 
 //crea un nuovo nodo giocatore nel db
 function newPlayer(nome , isHost) {
-    allowDisconnection();
-    playerRef = firebase.database().ref('games/' + gameId + "/players").push();
-    playerRef.set({
-        id: playerRef.key,
-        nome: nome,
-        isHost: isHost,
-        mano:{}
-        //bisognerà inserire tutte le informmazioni del caso
-    });
-    playerId = playerRef.key;
+    // controllo se posso connettermi
+    gameRef.once("value").then((snapshot) => {
+        let connected = snapshot.val().playersConnected
+        if(connected >= snapshot.val().maxNumberOfPlayers){
+            alert("Impossibile connettersi, la stanza è già piena")
+            return
+        }
 
-    let player = {
-        id : playerId,
-        nome : nome,
-    }
+        allowDisconnection();
+        playerRef = firebase.database().ref('games/' + gameId + "/players").push();
+        playerRef.set({
+            id: playerRef.key,
+            nome: nome,
+            isHost: isHost,
+            mano:{}
+            //bisognerà inserire tutte le informazioni del caso
+        });
+        playerId = playerRef.key;
+    
+        let player = {
+            id : playerId,
+            nome : nome,
+        }
+    
+        // salva queste variabili nella memoria della sessione
+        sessionStorage.setItem("giocatore" , JSON.stringify(player));
+        sessionStorage.setItem("sessionId" , gameId);
+        sessionStorage.setItem("dbConfig" , JSON.stringify(firebaseConfig));
 
-    // salva queste variabili nella memoria della sessione
-    sessionStorage.setItem("giocatore" , JSON.stringify(player));
-    sessionStorage.setItem("sessionId" , gameId);
-    sessionStorage.setItem("dbConfig" , JSON.stringify(firebaseConfig));
+        document.querySelectorAll(".inizio").forEach(i => i.style.visibility = "visible")
+
+        connected ++
+        gameRef.update({
+            playersConnected: connected
+        })
+        
+        //inizia la partita automaticamente quando tutti i giocatori sono connessi
+        gameRef.on("value" , (snapshot)=>{
+            if(snapshot.val().maxNumberOfPlayers == snapshot.val().playersConnected){
+                disableDisconnection();
+                window.location = "Home.html"
+            }
+        })
+    })
 }
 
 //questa funzione serve per garantire la disconnessione dal database
-// una volta che il giocatocatore si diconnette
+// una volta che il giocatore si disconnette
 
 function allowDisconnection() {
     if (gameRef != undefined) {

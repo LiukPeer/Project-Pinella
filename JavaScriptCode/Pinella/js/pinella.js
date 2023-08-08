@@ -55,9 +55,8 @@ function setup(){
                 initDb();
             }
             // quando i dati vengono caricati sul db viene aggiornato il client
-            playerRef.once("value").then((snapshot) => {
-                updateClient()
-            })
+            updateClientAux()
+
         // se non trova un collegamento
         }else{
             console.log("no data available")
@@ -78,7 +77,7 @@ function initDb(){
 
         for (let i = 0; i < nCarte; i++) {
             Object.keys(players).forEach((key) => {
-                //deve aggiungere una carta a ciascun gioctore
+                //deve aggiungere una carta a ciascun giocatore
                 let tmpManoRef = firebase.database().ref("games/" + gameId + "/players/" + players[key].id + "/mano");
                 pushCard(tmpManoRef , mazzo.pop());
             });
@@ -96,7 +95,8 @@ function initDb(){
 
     // imposta il turno a 0
     gameRef.update({
-        turno: 0
+        turno: 0,
+        started: true
     })
 }
 
@@ -131,8 +131,16 @@ function getCard(insieme , carta){
 }
 
 // preleva tutte le informazioni dal database
+function updateClientAux(){
+    gameRef.once("value").then((snapshot) => {
+        if(snapshot.val().started){
+            updateClient()
+        }else{
+            setTimeout(updateClientAux , 500)
+        }
+    })
+}
 function updateClient(){
-
     // aggiorna il mazzo
     deckRef.once("value").then((snapshot) => {
         mazzo = [];
@@ -170,7 +178,7 @@ function updateDb(){
 }
 
 
-// mostra la mano per la preima volta al giocatore
+// mostra la mano per la prima volta al giocatore
 function displayMano(){
     let c = document.querySelector(".giocatore");
     //c.childNodes.forEach(carta => {
@@ -240,7 +248,7 @@ function scarto(ev) {
         return;
     }
     document.querySelector(".scarto").appendChild(carta);
-    //rimuove lo swap delle carte nello carto
+    //rimuove lo swap delle carte nello scarto
     carta.removeEventListener("dragstart" , drag , false);
     //listener per poter pescare
     carta.addEventListener("click" , ev =>{

@@ -33,8 +33,8 @@
                 <button class="copy" onclick="copia()"></button>
                 <input class="idOutput" type="text" id="idStanza" readonly/>
             </div>
-            <div class="btnInvia1">
-                <a onclick="disableDisconnection()" href="Home.html" class="btn-invia">Inizia</a>
+            <div class="inizio _1">
+                <a>In attesa degli altri giocatori</a>
             </div>
         </div>
         <div class="connection box" style="display : none">
@@ -43,8 +43,8 @@
             <label class="label-connect1">Inserisci il codice della stanza:</label>
             <input type="text" class="campi" placeholder="Inserisci il codice della stanza" id="gameId"/>
             <button onclick="joinGame()" class="btn-join">Collegati a una stanza</button>
-            <div class="btnInvia2">
-                <a onclick="disableDisconnection()" href="Home.html" class="btn-invia">Inizia</a>
+            <div class="inizio _2">
+                <a>In attesa degli altri giocatori</a>
             </div>
         </div>
 
@@ -63,7 +63,8 @@
             var targetBox = $("." + inputValue);
             $(".box").not(targetBox).hide();
             $(targetBox).show();
-            //cambaindo da host a ospite disconnette dal db
+            document.querySelectorAll(".inizio").forEach(i => i.style.visibility = "hidden");
+            //cambiando da host a ospite disconnette dal db
             disconnect();
         });
     });
