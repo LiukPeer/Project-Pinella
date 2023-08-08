@@ -62,7 +62,21 @@ function joinGame() {
 
         gameId = id
         gameRef = allGamesRef.child(gameId)
-        newPlayer(name , false)
+
+        // controlla che esista la stanza
+        allGamesRef.once("value").then((snapshot) => {
+            let flag = false
+            if(snapshot.exists()){
+                Object.keys(snapshot.val()).forEach((i) => {
+                    flag = flag || i == id
+                })
+            }
+            if(!flag){
+                alert("Non esiste una stanza con questo id")
+            }else{
+                newPlayer(name , false)
+            }
+        })
     }
 }
 

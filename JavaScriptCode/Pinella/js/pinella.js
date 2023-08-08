@@ -181,9 +181,6 @@ function updateDb(){
 // mostra la mano per la prima volta al giocatore
 function displayMano(){
     let c = document.querySelector(".giocatore");
-    //c.childNodes.forEach(carta => {
-    //    c.removeChild(carta);
-    //});
 
     player.mano.forEach(carta => {
         let myImage = new Image(50, 75);
@@ -194,7 +191,6 @@ function displayMano(){
         myImage.addEventListener("dragstart", drag);
     })
 }
-
 
 // imposta lo scarto come un nuovo array di carte
 function setScarto(){
