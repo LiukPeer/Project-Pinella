@@ -1,8 +1,4 @@
-let mazzo = [];
 let mazzoScarto = [];
-
-//turno andrà modificato dinamicamente
-let turno = 0
 
 const nCarte = 13
 const semi = ["clubs", "diamonds", "hearts", "spades"]
@@ -16,7 +12,7 @@ const gameRef = firebase.database().ref("games/" + gameId);
 
 const allPlayersRef = firebase.database().ref("games/" + gameId + "/players");
 
-const deckRef = firebase.database().ref('games/' + gameId + "/deck");
+const mazzoRef = firebase.database().ref('games/' + gameId + "/deck");
 const scartoRef = firebase.database().ref('games/' + gameId + "/discard");
 
 
@@ -25,6 +21,8 @@ var manoRef;
 var player;
 var playerId;
 var playerRef;
+
+var pescatoDalMazzo = false;
 
 // rimuove la sessione nel caso in cui qualcuno si disconnetta
 function allowDisconnection() {
@@ -69,7 +67,7 @@ function setup(){
 // setta il database IMPORTANTE CHIAMARE SOLO UNA VOLTA
 function initDb(){
     // crea il mazzo
-    mazzo = new deck(13, semi, true, 2, true).getMazzo(); 
+    let mazzo = new deck(13, semi, true, 2, true).getMazzo(); 
 
     // distribuisce le carte
     allPlayersRef.once("value").then((snapshot) => {
@@ -90,13 +88,14 @@ function initDb(){
 
     // inerisce il mazzo all'interno del database
     mazzo.forEach(carta => {
-        pushCard(deckRef , carta);
+        pushCard(mazzoRef , carta);
     });
 
     // imposta il turno a 0
     gameRef.update({
         turno: 0,
-        started: true
+        started: true,
+        updated: true
     })
 }
 
@@ -123,65 +122,113 @@ function pushCard(ref , carta){
 
 // preleva una carta dal database e la inserisce nell'insieme
 function getCard(insieme , carta){
+    insieme.push(newCard(carta))
+}
+
+function newCard(carta){
     if(carta.isJoker){
-        insieme.push(new joker(carta.src , carta.isREALLYJoker , carta.id));
+        return new joker(carta.src , carta.isREALLYJoker , carta.id)
     }else{
-        insieme.push(new carte(carta.numero , carta.seme , carta.id));
+        return new carte(carta.numero , carta.seme , carta.id)
     }
 }
 
 // preleva tutte le informazioni dal database
 function updateClientAux(){
-    gameRef.once("value").then((snapshot) => {
-        if(snapshot.val().started){
+    gameRef.on("value" , (snapshot) => {
+        if(snapshot.val().updated){
             updateClient()
-        }else{
-            setTimeout(updateClientAux , 500)
         }
     })
 }
 function updateClient(){
-    // aggiorna il mazzo
-    deckRef.once("value").then((snapshot) => {
-        mazzo = [];
-        let m = snapshot.val();
-        Object.keys(m).forEach(carta => {
-            getCard(mazzo , m[carta]);
-        });
-    });
+    //TODO si potrebbero aggiungere alert di errore se non si scarta niente
 
     //aggiorna lo scarto
     scartoRef.once("value").then((snapshot) => {
-        mazzoScarto = [];
-        let m = snapshot.val();
-        Object.keys(m).forEach(carta => {
-            getCard(mazzoScarto , m[carta]);
-        });
-        setScarto();
+        if(snapshot.exists()){
+            mazzoScarto = [];
+            let m = snapshot.val();
+            Object.keys(m).forEach(carta => {
+                getCard(mazzoScarto , m[carta]);
+            });
+            setScarto();
+        }
     });
 
     // aggiorna la mano
     manoRef.once("value").then((snapshot) => {
-        player.mano = [];
-        let m = snapshot.val();
-        Object.keys(m).forEach(carta => {
-            getCard(player.mano , m[carta]);
-        });
-        displayMano()
+        if(snapshot.exists()){
+            player.mano = [];
+            let m = snapshot.val();
+            Object.keys(m).forEach(carta => {
+                getCard(player.mano , m[carta]);
+            });
+            displayMano()
+        }
     });
 
 }
 
+function reset(){
+
+}
+
+function fineTurno(){
+    gameRef.update({
+        updated: false
+    }).then(() => updateDb())
+    gameRef.once("value").then((snapshot)=>{
+        gameRef.update({
+            turno: snapshot.val().turno + 1
+        })
+    })
+}
+
+
 // salva tutte le informazioni sul database
 function updateDb(){
-    
+    console.log(pescatoDalMazzo)
+    //salva lo scarto 
+    scartoRef.remove().then(() => {
+        mazzoScarto.forEach(e => {
+            pushCard(scartoRef , e)
+        })
+    }).then(() => {
+        //salva la mano attuale
+        manoRef.remove().then(() => {
+            player.mano.forEach(e => {
+                pushCard(manoRef , e)
+            })
+        }).then(() => {
+            // rimuove la carta pescata dal mazzo
+            if(pescatoDalMazzo){
+                mazzoRef.once("value").then((snapshot) => {
+                    mazzoRef.child(Object.keys(snapshot.val()).pop()).remove().catch(() => {
+                        console.log("errore nella rimozione dal mazzo")
+                    })
+                    pescatoDalMazzo = false
+                }).then(() => {
+                    gameRef.update({
+                        updated: true
+                    })
+                })
+            }else{
+                gameRef.update({
+                    updated: true
+                })
+            }
+        })
+    })
 }
 
 
 // mostra la mano per la prima volta al giocatore
 function displayMano(){
     let c = document.querySelector(".giocatore");
-
+    while (c.firstChild){
+        c.removeChild(c.firstChild);
+    }
     player.mano.forEach(carta => {
         let myImage = new Image(50, 75);
         myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
@@ -209,19 +256,13 @@ function setScarto(){
     }
 }
 
-function pesca(carta){
-    player.mano.push(carta);
-
-    let myImage = new Image(50, 75);
-    myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
-    myImage.id = carta.id;
-    document.querySelector(".giocatore").appendChild(myImage);
-    //listener per poter scartare
-    myImage.addEventListener("dragstart", drag);
-}
-
 function pescaMazzo() {
-    pesca(mazzo.pop())
+    if(!pescatoDalMazzo){
+        mazzoRef.once("value").then((snapshot) => {
+            pesca(newCard(snapshot.val()[Object.keys(snapshot.val()).pop()]))
+        })
+        pescatoDalMazzo = true
+    }
 }
 
 // Questa parte gestisce lo scarto
@@ -233,6 +274,17 @@ function pescaScarto(id) {
         document.querySelector(".scarto").removeChild(document.getElementById(mazzoScarto[i].id))
         pesca(mazzoScarto.pop());
     }
+}
+
+function pesca(carta){
+    player.mano.push(carta);
+
+    let myImage = new Image(50, 75);
+    myImage.src = "../immagini/PNG-cards-1.3/" + carta.src + ".png";
+    myImage.id = carta.id;
+    document.querySelector(".giocatore").appendChild(myImage);
+    //listener per poter scartare
+    myImage.addEventListener("dragstart", drag);
 }
 
 function scarto(ev) {

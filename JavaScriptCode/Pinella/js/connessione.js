@@ -42,7 +42,7 @@ function createGame() {
         gameRef.update({
             maxNumberOfPlayers: numberOfPlayers,
             playersConnected: 0,
-            turno: 0,
+            turno: null,
             started: false
         })
         gameId = gameRef.key;
@@ -73,6 +73,7 @@ function joinGame() {
             }
             if(!flag){
                 alert("Non esiste una stanza con questo id")
+                gameRef = undefined
             }else{
                 newPlayer(name , false)
             }

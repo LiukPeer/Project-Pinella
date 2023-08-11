@@ -64,3 +64,15 @@
     width: 100%;
     height: fit-content;
 }
+
+.fineTurno{
+    width: 100px;
+    height: 50px;
+    background-color: #ffff;
+}
+
+.reset{
+    width: 100px;
+    height: 50px;
+    background-color: #ffff;
+}

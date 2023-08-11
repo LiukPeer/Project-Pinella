@@ -9,6 +9,11 @@
 </head>
 <body onload="allowDisconnection() ; setup()">
 <div class="container">
+    <div>
+        <button class="fineTurno" onclick="fineTurno()">Finisci il turno</button>
+        <button class="reset" onclick="reset()">Ripristina la posizione di partenza</button>
+    </div>
+    
     <div class="tavolo">
         <div class="util1" ondrop="scarto(event)" ondragover="allowDrop(event)">
             <div class="mazzo">
