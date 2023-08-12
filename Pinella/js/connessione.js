@@ -22,7 +22,7 @@ var playerId
 var playerRef
 
 // numero massimo di giocatori nella stanza
-var numberOfPlayers = 2
+var numberOfPlayers = 1
 
 // salva il gameId negli appunti
 function copia() {
@@ -41,9 +41,7 @@ function createGame() {
         // genera il campo turno
         gameRef.update({
             maxNumberOfPlayers: numberOfPlayers,
-            playersConnected: 0,
-            turno: null,
-            started: false
+            playersConnected: 0
         })
         gameId = gameRef.key;
         document.getElementById("idStanza").value = gameId;

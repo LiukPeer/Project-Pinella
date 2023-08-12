@@ -15,7 +15,11 @@ class giocatore {
         return this
     }
 
-
+    /**
+     * Rimuove una carta dalla mano del giocatore:
+     * @param {*} cardId è l'id della carta da rimuovere
+     * @returns la carta selezionata
+     */
     rimuoviCarta(cardId) {
         let tmp;
         for (let i = 0; i < this.mano.length; i++) {

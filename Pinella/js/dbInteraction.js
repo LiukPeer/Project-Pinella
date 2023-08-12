@@ -1,9 +1,5 @@
 let mazzoScarto = [];
 
-const nCarte = 13
-const semi = ["clubs", "diamonds", "hearts", "spades"]
-
-
 //inizializza il database
 firebase.initializeApp(JSON.parse(sessionStorage.getItem("dbConfig")));
 
@@ -22,6 +18,8 @@ var player;
 var playerId;
 var playerRef;
 
+var scartato = false;
+var pescato = false;
 var pescatoDalMazzo = false;
 
 // rimuove la sessione nel caso in cui qualcuno si disconnetta
@@ -37,9 +35,10 @@ allPlayersRef.on("child_removed", (snapshot) => {
         alert("Il giocatore " + snapshot.val().nome + " si è disconnesso");
     }
     window.location = "Users.html"
-  })
+})
 
-function setup(){
+
+function setup(gioco){
     // genera il giocatore a partire dal cookie
     player = (new giocatore()).initialize(JSON.parse(sessionStorage.getItem("giocatore")));
     playerId = player.id;
@@ -50,14 +49,15 @@ function setup(){
         if(snapshot.exists()){
             // se il player è l'host inizializza la partita
             if(snapshot.val().isHost){
-                initDb();
+                initDb(gioco);
             }
             // quando i dati vengono caricati sul db viene aggiornato il client
             updateClientAux()
 
         // se non trova un collegamento
         }else{
-            console.log("no data available")
+            alert("Ti sei disconnesso dalla partita")
+            window.location = "Users.html"
         }
     }).catch((error) => {
         console.error(error);
@@ -65,15 +65,15 @@ function setup(){
 }
 
 // setta il database IMPORTANTE CHIAMARE SOLO UNA VOLTA
-function initDb(){
+function initDb(gioco){
     // crea il mazzo
-    let mazzo = new deck(13, semi, true, 2, true).getMazzo(); 
+    let mazzo = new deck(gioco.maxVal, gioco.jolly, gioco.nMazzi, gioco.boolPinella).getMazzo(); 
 
     // distribuisce le carte
     allPlayersRef.once("value").then((snapshot) => {
         let players = snapshot.val();
 
-        for (let i = 0; i < nCarte; i++) {
+        for (let i = 0; i < gioco.nCarte; i++) {
             Object.keys(players).forEach((key) => {
                 //deve aggiungere una carta a ciascun giocatore
                 let tmpManoRef = firebase.database().ref("games/" + gameId + "/players/" + players[key].id + "/mano");
@@ -82,9 +82,12 @@ function initDb(){
         }
     });
 
-    // scarta la prima carta del mazzo
-    pushCard(scartoRef , mazzo.pop())
-    //setScarto([mazzo.pop()]);
+    if(gioco.siScarta){
+        // scarta la prima carta del mazzo
+        pushCard(scartoRef , mazzo.pop())
+    }else{
+        disableScarto()
+    }
 
     // inerisce il mazzo all'interno del database
     mazzo.forEach(carta => {
@@ -94,7 +97,6 @@ function initDb(){
     // imposta il turno a 0
     gameRef.update({
         turno: 0,
-        started: true,
         updated: true
     })
 }
@@ -170,14 +172,31 @@ function updateClient(){
 
 }
 
+// TODO
 function reset(){
-
+    //pescato = false
+    //pescatoDalMazzo = false
+    //scartato = false
+    //updateClient()
 }
 
 function fineTurno(){
+    if(!pescato){
+        alert("Devi pescare una carta dal mazzo o dallo scarto!")
+        return
+    }
+    if(siPuòScartare && !scartato){
+        alert("Devi scartare una carta!")
+        return
+    }
+
     gameRef.update({
         updated: false
-    }).then(() => updateDb())
+    }).then(() => updateDb()).then(() => {
+        pescato = false
+        pescatoDalMazzo = false
+        scartato = false
+    })
     gameRef.once("value").then((snapshot)=>{
         gameRef.update({
             turno: snapshot.val().turno + 1
@@ -188,7 +207,6 @@ function fineTurno(){
 
 // salva tutte le informazioni sul database
 function updateDb(){
-    console.log(pescatoDalMazzo)
     //salva lo scarto 
     scartoRef.remove().then(() => {
         mazzoScarto.forEach(e => {
@@ -207,7 +225,6 @@ function updateDb(){
                     mazzoRef.child(Object.keys(snapshot.val()).pop()).remove().catch(() => {
                         console.log("errore nella rimozione dal mazzo")
                     })
-                    pescatoDalMazzo = false
                 }).then(() => {
                     gameRef.update({
                         updated: true
@@ -223,7 +240,7 @@ function updateDb(){
 }
 
 
-// mostra la mano per la prima volta al giocatore
+// mostra la mano al giocatore
 function displayMano(){
     let c = document.querySelector(".giocatore");
     while (c.firstChild){
@@ -239,8 +256,16 @@ function displayMano(){
     })
 }
 
+var siPuòScartare = true
+
+function disableScarto(){
+    siPuòScartare = false
+}
 // imposta lo scarto come un nuovo array di carte
 function setScarto(){
+    if(!siPuòScartare){
+        return
+    }
     let scarto = document.querySelector(".scarto");
     while (scarto.firstChild){
         scarto.removeChild(scarto.firstChild);
@@ -256,23 +281,26 @@ function setScarto(){
     }
 }
 
-function pescaMazzo() {
-    if(!pescatoDalMazzo){
-        mazzoRef.once("value").then((snapshot) => {
-            pesca(newCard(snapshot.val()[Object.keys(snapshot.val()).pop()]))
-        })
-        pescatoDalMazzo = true
-    }
-}
-
 // Questa parte gestisce lo scarto
 function pescaScarto(id) {
+    if(!siPuòScartare || pescato){
+        return
+    }
     let flag = false;
     // qui le carte vengono pescate dalla cima dello scarto
     for(let i = mazzoScarto.length-1 ; i >= 0 && !flag; i--){
         flag = flag || mazzoScarto[i].id == id
         document.querySelector(".scarto").removeChild(document.getElementById(mazzoScarto[i].id))
         pesca(mazzoScarto.pop());
+    }
+}
+
+function pescaMazzo() {
+    if(!pescatoDalMazzo && !pescato){
+        mazzoRef.once("value").then((snapshot) => {
+            pesca(newCard(snapshot.val()[Object.keys(snapshot.val()).pop()]))
+        })
+        pescatoDalMazzo = true
     }
 }
 
@@ -285,9 +313,14 @@ function pesca(carta){
     document.querySelector(".giocatore").appendChild(myImage);
     //listener per poter scartare
     myImage.addEventListener("dragstart", drag);
+
+    pescato = true;
 }
 
 function scarto(ev) {
+    if(!siPuòScartare || scartato){
+        return
+    }
     ev.preventDefault();
     let data = ev.dataTransfer.getData("carta");
     let carta = document.getElementById(data);
@@ -303,6 +336,7 @@ function scarto(ev) {
         pescaScarto(ev.srcElement.id);
     })
     mazzoScarto.push(player.rimuoviCarta(data));
+    scartato = true;
 }
 
 function drag(ev) {

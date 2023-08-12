@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco</title>
+    <link rel="icon" type="image/png" href="../immagini/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="allowDisconnection()">
+<div class="container">
+    <div>
+        <button class="fineTurno" onclick="fineTurno()">Finisci il turno</button>
+        <button class="reset" onclick="reset()">Ripristina la posizione di partenza</button>
+    </div>
+    
+    <div class="tavolo">
+        <div class="util1" ondrop="scarto(event)" ondragover="allowDrop(event)">
+            <div class="mazzo">
+                <img src="../immagini/PNG-cards-1.3/retro.png" class="img-retro" onclick="pescaMazzo()"
+                     alt="Mazzo delle carte"/>
+            </div>
+            <div class="scarto"></div>
+        </div>
+
+        <div class="giocatore"></div>
+
+    </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="js/carte.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/giocatore.js"></script>
+<script src="js/dbInteraction.js"></script>
+<script src="js/pinella.js"></script>
+</body>
+</html>
