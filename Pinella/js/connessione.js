@@ -22,7 +22,7 @@ var playerId
 var playerRef
 
 // numero massimo di giocatori nella stanza
-var numberOfPlayers = 1
+var numberOfPlayers = 2
 
 // salva il gameId negli appunti
 function copia() {
